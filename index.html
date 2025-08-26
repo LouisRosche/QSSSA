@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QSSSA Interactive Poster - Kairos Dark Edition</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* Custom styles for Dark Mode */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #111827; /* Tailwind gray-900 */
+        }
+        .font-display {
+            font-family: 'Atkinson Hyperlegible', sans-serif;
+        }
+        /* Card styling for the flip effect */
+        .card-container {
+            perspective: 1200px;
+        }
+        .card {
+            transform-style: preserve-3d;
+            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+        .card.is-flipped {
+            transform: rotateY(180deg);
+        }
+        .card-face {
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden;
+        }
+        .card-face-back {
+            transform: rotateY(180deg);
+            justify-content: center;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4 sm:p-6">
+    <div class="w-full max-w-7xl mx-auto">
+        <!-- Header Section -->
+        <header class="text-center mb-12">
+            <h1 class="font-display text-7xl md:text-8xl font-bold tracking-tight" style="color: #a2c0f2;">QSSSA</h1>
+            <p class="text-xl md:text-2xl mt-2 font-medium" style="color: #40c1ce;">A Structured Conversation Strategy for Deeper Learning</p>
+        </header>
+
+        <!-- Main Flex container for cards -->
+        <div class="flex flex-wrap justify-center gap-8">
+            
+            <!-- Card 1: Question -->
+            <div class="card-container min-h-[24rem] w-full sm:w-80" onclick="this.querySelector('.card').classList.toggle('is-flipped')">
+                <div class="card w-full h-full cursor-pointer">
+                    <div class="card-face rounded-2xl shadow-xl p-6 text-center bg-gray-800 border-t-8" style="border-color: #f15c49;">
+                        <div>
+                            <h2 class="font-display text-5xl font-bold" style="color: #f15c49;">1. Question</h2>
+                            <ul class="text-left text-gray-300 text-lg space-y-2 list-disc pl-8 mt-4 font-medium">
+                                <li>Pose an open-ended question</li>
+                                <li>Incorporate rich vocabulary</li>
+                                <li>Keep the question visible</li>
+                            </ul>
+                        </div>
+                        <div class="flex items-center justify-center text-gray-500 mt-4">
+                           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 21v-3.37a4 4 0 0 0-1.24-2.83L5 11.5V6a3 3 0 0 1 3-3h3"/><path d="M21 3 13 11"/><path d="M9 17v-2.5a3.5 3.5 0 0 1 7 0V17"/></svg>
+                            <span class="ml-2 text-sm font-semibold">Click for Details</span>
+                        </div>
+                    </div>
+                    <div class="card-face card-face-back rounded-2xl shadow-xl p-6 bg-gray-800 border-t-8" style="border-color: #f15c49;">
+                        <h3 class="font-display text-2xl font-bold mb-3" style="color: #f15c49;">Deeper Dive: Question</h3>
+                        <p class="text-left text-gray-300 text-base">
+                            <strong>Why it works:</strong> An effective question is the catalyst for critical thinking. It sets the purpose for the conversation and challenges students to move beyond surface-level answers.
+                            <br><br>
+                            <strong>Example:</strong> Instead of "What was the main character's name?", ask "How did the character's decision at the beginning of the story influence the final outcome?"
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2: Signal -->
+            <div class="card-container min-h-[24rem] w-full sm:w-80" onclick="this.querySelector('.card').classList.toggle('is-flipped')">
+                <div class="card w-full h-full cursor-pointer">
+                    <div class="card-face rounded-2xl shadow-xl p-6 text-center bg-gray-800 border-t-8" style="border-color: #fbaf1b;">
+                        <div>
+                            <h2 class="font-display text-5xl font-bold" style="color: #fbaf1b;">2. Signal</h2>
+                            <ul class="text-left text-gray-300 text-lg space-y-2 list-disc pl-8 mt-4 font-medium">
+                                <li>Provide silent thinking time</li>
+                                <li>Students use a non-verbal signal</li>
+                                <li>Wait for high participation</li>
+                            </ul>
+                        </div>
+                        <div class="flex items-center justify-center text-gray-500 mt-4">
+                           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 21v-3.37a4 4 0 0 0-1.24-2.83L5 11.5V6a3 3 0 0 1 3-3h3"/><path d="M21 3 13 11"/><path d="M9 17v-2.5a3.5 3.5 0 0 1 7 0V17"/></svg>
+                            <span class="ml-2 text-sm font-semibold">Click for Details</span>
+                        </div>
+                    </div>
+                    <div class="card-face card-face-back rounded-2xl shadow-xl p-6 bg-gray-800 border-t-8" style="border-color: #fbaf1b;">
+                        <h3 class="font-display text-2xl font-bold mb-3" style="color: #fbaf1b;">Deeper Dive: Signal</h3>
+                        <p class="text-left text-gray-300 text-base">
+                           <strong>Why it works:</strong> This step ensures equity of voice. It gives all students, especially introverted thinkers or language learners, the time they need to formulate their thoughts before speaking.
+                           <br><br>
+                           <strong>Pro-Tip:</strong> Establish a clear, consistent signal (e.g., thumbs-up on their chest) and hold students accountable for using it. This builds a classroom culture of thoughtful participation.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3: Stems -->
+            <div class="card-container min-h-[24rem] w-full sm:w-80" onclick="this.querySelector('.card').classList.toggle('is-flipped')">
+                 <div class="card w-full h-full cursor-pointer">
+                    <div class="card-face rounded-2xl shadow-xl p-6 text-center bg-gray-800 border-t-8" style="border-color: #239ad6;">
+                        <div>
+                            <h2 class="font-display text-5xl font-bold" style="color: #239ad6;">3. Stems</h2>
+                            <ul class="text-left text-gray-300 text-lg space-y-2 list-disc pl-8 mt-4 font-medium">
+                                <li>Provide academic sentence stems</li>
+                                <li>Model how to use the stems</li>
+                                <li>Connect stems to the question</li>
+                            </ul>
+                        </div>
+                        <div class="flex items-center justify-center text-gray-500 mt-4">
+                           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 21v-3.37a4 4 0 0 0-1.24-2.83L5 11.5V6a3 3 0 0 1 3-3h3"/><path d="M21 3 13 11"/><path d="M9 17v-2.5a3.5 3.5 0 0 1 7 0V17"/></svg>
+                            <span class="ml-2 text-sm font-semibold">Click for Details</span>
+                        </div>
+                    </div>
+                    <div class="card-face card-face-back rounded-2xl shadow-xl p-6 bg-gray-800 border-t-8" style="border-color: #239ad6;">
+                        <h3 class="font-display text-2xl font-bold mb-3" style="color: #239ad6;">Deeper Dive: Stems</h3>
+                        <p class="text-left text-gray-300 text-base">
+                           <strong>Why it works:</strong> Stems provide a scaffold for academic language, helping students articulate their ideas clearly and professionally. They are a bridge from informal thought to formal discourse.
+                           <br><br>
+                           <strong>Examples:</strong> "I infer that..." for making a conclusion; "A different perspective is..." for disagreeing respectfully; "Based on the evidence, I conclude..." for analysis.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 4: Share -->
+            <div class="card-container min-h-[24rem] w-full sm:w-80" onclick="this.querySelector('.card').classList.toggle('is-flipped')">
+                <div class="card w-full h-full cursor-pointer">
+                    <div class="card-face rounded-2xl shadow-xl p-6 text-center bg-gray-800 border-t-8" style="border-color: #41ba78;">
+                        <div>
+                           <h2 class="font-display text-5xl font-bold" style="color: #41ba78;">4. Share</h2>
+                            <ul class="text-left text-gray-300 text-lg space-y-2 list-disc pl-8 mt-4 font-medium">
+                                <li>Students share in pairs/triads</li>
+                                <li>Encourage active listening</li>
+                                <li>Low-stakes practice opportunity</li>
+                            </ul>
+                        </div>
+                        <div class="flex items-center justify-center text-gray-500 mt-4">
+                           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 21v-3.37a4 4 0 0 0-1.24-2.83L5 11.5V6a3 3 0 0 1 3-3h3"/><path d="M21 3 13 11"/><path d="M9 17v-2.5a3.5 3.5 0 0 1 7 0V17"/></svg>
+                            <span class="ml-2 text-sm font-semibold">Click for Details</span>
+                        </div>
+                    </div>
+                    <div class="card-face card-face-back rounded-2xl shadow-xl p-6 bg-gray-800 border-t-8" style="border-color: #41ba78;">
+                        <h3 class="font-display text-2xl font-bold mb-3" style="color: #41ba78;">Deeper Dive: Share</h3>
+                        <p class="text-left text-gray-300 text-base">
+                           <strong>Why it works:</strong> Small group sharing builds confidence and allows every student to verbalize their thinking. It's a rehearsal for whole-group discussion and a chance to refine ideas with peers.
+                           <br><br>
+                           <strong>Pro-Tip:</strong> Give clear roles during sharing, such as Speaker 1, Speaker 2, and a "Builder" who adds on to the ideas. This promotes focused conversation.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 5: Assess -->
+            <div class="card-container min-h-[24rem] w-full sm:w-80" onclick="this.querySelector('.card').classList.toggle('is-flipped')">
+                <div class="card w-full h-full cursor-pointer">
+                    <div class="card-face rounded-2xl shadow-xl p-6 text-center bg-gray-800 border-t-8" style="border-color: #b285bc;">
+                        <div>
+                            <h2 class="font-display text-5xl font-bold" style="color: #b285bc;">5. Assess</h2>
+                            <ul class="text-left text-gray-300 text-lg space-y-2 list-disc pl-8 mt-4 font-medium">
+                                <li>Randomly call on students</li>
+                                <li>Listen for understanding</li>
+                                <li>Provide specific feedback</li>
+                            </ul>
+                        </div>
+                        <div class="flex items-center justify-center text-gray-500 mt-4">
+                           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 21v-3.37a4 4 0 0 0-1.24-2.83L5 11.5V6a3 3 0 0 1 3-3h3"/><path d="M21 3 13 11"/><path d="M9 17v-2.5a3.5 3.5 0 0 1 7 0V17"/></svg>
+                            <span class="ml-2 text-sm font-semibold">Click for Details</span>
+                        </div>
+                    </div>
+                    <div class="card-face card-face-back rounded-2xl shadow-xl p-6 bg-gray-800 border-t-8" style="border-color: #b285bc;">
+                        <h3 class="font-display text-2xl font-bold mb-3" style="color: #b285bc;">Deeper Dive: Assess</h3>
+                        <p class="text-left text-gray-300 text-base">
+                           <strong>Why it works:</strong> This is a formative assessment checkpoint. It makes student thinking visible to the whole class and allows the teacher to identify trends, clarify misconceptions, and plan next steps.
+                           <br><br>
+                           <strong>Pro-Tip:</strong> Use this as an opportunity to celebrate strong academic language and critical thinking. Amplify student voices who effectively used the sentence stems or provided unique insights.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
