@@ -87,6 +87,7 @@
             perspective: 1200px;
             transition: transform 0.2s ease;
             height: auto;
+            position: relative;
         }
 
         .card-container:hover {
@@ -97,6 +98,11 @@
             outline: 3px solid var(--color-accent);
             outline-offset: 4px;
             border-radius: 1rem;
+        }
+
+        /* When card is flipped, bring it forward */
+        .card-container:has(.card.is-flipped) {
+            z-index: 100;
         }
 
         .card {
@@ -129,19 +135,6 @@
             overflow-y: visible;
         }
 
-        /* Progress indicator */
-        .progress-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: #374151;
-            transition: all 0.3s ease;
-        }
-
-        .progress-dot.explored {
-            background: var(--color-accent);
-            box-shadow: 0 0 10px rgba(162, 192, 242, 0.5);
-        }
 
         /* Smooth animations */
         @keyframes fadeInUp {
@@ -280,17 +273,7 @@
     <!-- Skip to main content -->
     <a href="#main-content" class="skip-link">Skip to main content</a>
 
-    <!-- Progress Tracker -->
-    <div class="no-print fixed top-4 right-4 bg-gray-800 rounded-full px-4 py-2 shadow-lg z-50 flex items-center gap-2" role="status" aria-live="polite">
-        <span class="text-xs text-gray-400 font-medium">Progress:</span>
-        <div class="flex gap-2" id="progress-dots">
-            <div class="progress-dot" data-step="0" aria-label="Question step"></div>
-            <div class="progress-dot" data-step="1" aria-label="Signal step"></div>
-            <div class="progress-dot" data-step="2" aria-label="Stems step"></div>
-            <div class="progress-dot" data-step="3" aria-label="Share step"></div>
-            <div class="progress-dot" data-step="4" aria-label="Assess step"></div>
-        </div>
-    </div>
+    <!-- Progress Tracker - REMOVED -->
 
     <div class="w-full max-w-7xl mx-auto flex-grow">
         <!-- Header Section -->
@@ -348,10 +331,10 @@
 
         <!-- Main Cards Section -->
         <main id="main-content" role="main">
-            <div class="flex flex-wrap justify-center gap-6 lg:gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 max-w-7xl mx-auto">
 
                 <!-- Card 1: Question -->
-                <article class="card-container w-full sm:w-80 lg:w-96" data-step="0" tabindex="0" role="button" aria-label="Question step - Click to flip card">
+                <article class="card-container w-full" data-step="0" tabindex="0" role="button" aria-label="Question step - Click to flip card">
                     <div class="card w-full h-full">
                         <div class="card-face rounded-2xl shadow-xl bg-gray-800 border-t-8" style="border-color: #f15c49;">
                             <div class="flex flex-col h-full justify-between">
@@ -410,7 +393,7 @@
                 </article>
 
                 <!-- Card 2: Signal -->
-                <article class="card-container w-full sm:w-80 lg:w-96" data-step="1" tabindex="0" role="button" aria-label="Signal step - Click to flip card">
+                <article class="card-container w-full" data-step="1" tabindex="0" role="button" aria-label="Signal step - Click to flip card">
                     <div class="card w-full h-full">
                         <div class="card-face rounded-2xl shadow-xl bg-gray-800 border-t-8" style="border-color: #fbaf1b;">
                             <div class="flex flex-col h-full justify-between">
@@ -479,7 +462,7 @@
                 </article>
 
                 <!-- Card 3: Stems -->
-                <article class="card-container w-full sm:w-80 lg:w-96" data-step="2" tabindex="0" role="button" aria-label="Stems step - Click to flip card">
+                <article class="card-container w-full" data-step="2" tabindex="0" role="button" aria-label="Stems step - Click to flip card">
                     <div class="card w-full h-full">
                         <div class="card-face rounded-2xl shadow-xl bg-gray-800 border-t-8" style="border-color: #239ad6;">
                             <div class="flex flex-col h-full justify-between">
@@ -560,7 +543,7 @@
                 </article>
 
                 <!-- Card 4: Share -->
-                <article class="card-container w-full sm:w-80 lg:w-96" data-step="3" tabindex="0" role="button" aria-label="Share step - Click to flip card">
+                <article class="card-container w-full" data-step="3" tabindex="0" role="button" aria-label="Share step - Click to flip card">
                     <div class="card w-full h-full">
                         <div class="card-face rounded-2xl shadow-xl bg-gray-800 border-t-8" style="border-color: #41ba78;">
                             <div class="flex flex-col h-full justify-between">
@@ -629,7 +612,7 @@
                 </article>
 
                 <!-- Card 5: Assess -->
-                <article class="card-container w-full sm:w-80 lg:w-96" data-step="4" tabindex="0" role="button" aria-label="Assess step - Click to flip card">
+                <article class="card-container w-full" data-step="4" tabindex="0" role="button" aria-label="Assess step - Click to flip card">
                     <div class="card w-full h-full">
                         <div class="card-face rounded-2xl shadow-xl bg-gray-800 border-t-8" style="border-color: #b285bc;">
                             <div class="flex flex-col h-full justify-between">
@@ -719,7 +702,7 @@
                 Grab these free resources to master QSSSA and feel more confident participating in class discussions. Everything here is designed to help you learn and grow.
             </p>
 
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="grid md:grid-cols-2 gap-6">
                 <!-- Resource Card 1 -->
                 <div class="resource-card bg-gray-800 rounded-xl p-6 shadow-lg">
                     <div class="flex items-start gap-4">
@@ -842,30 +825,6 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Resource Card 6 -->
-                <div class="resource-card bg-gray-800 rounded-xl p-6 shadow-lg">
-                    <div class="flex items-start gap-4">
-                        <div class="bg-cyan-900 bg-opacity-40 p-3 rounded-lg">
-                            <svg width="24" height="24" fill="none" stroke="#40c1ce" stroke-width="2" viewBox="0 0 24 24">
-                                <circle cx="12" cy="12" r="10"/>
-                                <polygon points="10 8 16 12 10 16 10 8"/>
-                            </svg>
-                        </div>
-                        <div class="flex-1">
-                            <h3 class="font-display text-xl font-bold text-white mb-2">Video Demonstrations</h3>
-                            <p class="text-gray-400 text-sm mb-3">Watch real students using QSSSA successfully. See how it works in different classes and situations.</p>
-                            <button onclick="downloadResource('videos')" class="text-cyan-400 hover:text-cyan-300 text-sm font-medium flex items-center gap-1">
-                                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                    <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
-                                    <polyline points="15 3 21 3 21 9"/>
-                                    <line x1="10" y1="14" x2="21" y2="3"/>
-                                </svg>
-                                View Playlist
-                            </button>
-                        </div>
-                    </div>
-                </div>
             </div>
         </section>
 
@@ -970,7 +929,6 @@
             // Click handler
             container.addEventListener('click', () => {
                 card.classList.toggle('is-flipped');
-                markAsExplored(step);
             });
 
             // Keyboard handler
@@ -978,45 +936,9 @@
                 if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault();
                     card.classList.toggle('is-flipped');
-                    markAsExplored(step);
                 }
             });
         });
-
-        // Progress tracking
-        const exploredSteps = new Set();
-
-        function markAsExplored(step) {
-            exploredSteps.add(step);
-            const dot = document.querySelector(`[data-step="${step}"]`);
-            if (dot && dot.classList.contains('progress-dot')) {
-                dot.classList.add('explored');
-            }
-
-            // Save to localStorage
-            localStorage.setItem('qsssa-progress', JSON.stringify([...exploredSteps]));
-
-            // Celebrate completion
-            if (exploredSteps.size === 5) {
-                setTimeout(() => {
-                    if (confirm('🎉 Congratulations! You\'ve explored all 5 steps of QSSSA! Would you like to download the Quick Reference Guide?')) {
-                        downloadResource('quick-reference');
-                    }
-                }, 500);
-            }
-        }
-
-        // Load progress from localStorage
-        const savedProgress = localStorage.getItem('qsssa-progress');
-        if (savedProgress) {
-            JSON.parse(savedProgress).forEach(step => {
-                exploredSteps.add(step);
-                const dot = document.querySelector(`[data-step="${step}"]`);
-                if (dot && dot.classList.contains('progress-dot')) {
-                    dot.classList.add('explored');
-                }
-            });
-        }
 
         // Filter functionality
         let currentFilter = 'all';
