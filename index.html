@@ -86,6 +86,7 @@
         .card-container {
             perspective: 1200px;
             transition: transform 0.2s ease;
+            height: auto;
         }
 
         .card-container:hover {
@@ -102,6 +103,8 @@
             transform-style: preserve-3d;
             transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
+            width: 100%;
+            min-height: 600px;
         }
 
         .card.is-flipped {
@@ -115,15 +118,15 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
-            overflow-y: auto;
+            justify-content: flex-start;
+            padding: 1.5rem;
         }
 
         .card-face-back {
             transform: rotateY(180deg);
+            overflow-y: visible;
         }
 
         /* Progress indicator */
@@ -345,13 +348,13 @@
 
         <!-- Main Cards Section -->
         <main id="main-content" role="main">
-            <div class="flex flex-wrap justify-center gap-8">
+            <div class="flex flex-wrap justify-center gap-6 lg:gap-8">
 
                 <!-- Card 1: Question -->
-                <article class="card-container min-h-[28rem] w-full sm:w-80" data-step="0" tabindex="0" role="button" aria-label="Question step - Click to flip card">
+                <article class="card-container w-full sm:w-80 lg:w-96" data-step="0" tabindex="0" role="button" aria-label="Question step - Click to flip card">
                     <div class="card w-full h-full">
-                        <div class="card-face rounded-2xl shadow-xl p-6 text-center bg-gray-800 border-t-8" style="border-color: #f15c49;">
-                            <div>
+                        <div class="card-face rounded-2xl shadow-xl bg-gray-800 border-t-8" style="border-color: #f15c49;">
+                            <div class="flex flex-col h-full justify-between">
                                 <h2 class="font-display text-5xl font-bold mb-2" style="color: #f15c49;">1. Question</h2>
                                 <p class="text-xs text-gray-400 mb-4">📖 Listen & Understand</p>
                                 <ul class="text-left text-gray-300 text-lg space-y-2 list-disc pl-8 mt-4 font-medium">
@@ -365,8 +368,8 @@
                                 <span class="ml-2 text-sm font-semibold">Click or Press Enter for Details</span>
                             </div>
                         </div>
-                        <div class="card-face card-face-back rounded-2xl shadow-xl p-6 bg-gray-800 border-t-8" style="border-color: #f15c49;">
-                            <div>
+                        <div class="card-face card-face-back rounded-2xl shadow-xl bg-gray-800 border-t-8" style="border-color: #f15c49;">
+                            <div class="h-full">
                                 <h3 class="font-display text-2xl font-bold mb-3" style="color: #f15c49;">What You Do: Question</h3>
                                 <p class="text-left text-gray-300 text-sm mb-4">
                                     <strong>Your job:</strong> Don't zone out during this step! The question sets up everything else. If you miss it or misunderstand it, your whole answer will be off track.
@@ -407,10 +410,10 @@
                 </article>
 
                 <!-- Card 2: Signal -->
-                <article class="card-container min-h-[28rem] w-full sm:w-80" data-step="1" tabindex="0" role="button" aria-label="Signal step - Click to flip card">
+                <article class="card-container w-full sm:w-80 lg:w-96" data-step="1" tabindex="0" role="button" aria-label="Signal step - Click to flip card">
                     <div class="card w-full h-full">
-                        <div class="card-face rounded-2xl shadow-xl p-6 text-center bg-gray-800 border-t-8" style="border-color: #fbaf1b;">
-                            <div>
+                        <div class="card-face rounded-2xl shadow-xl bg-gray-800 border-t-8" style="border-color: #fbaf1b;">
+                            <div class="flex flex-col h-full justify-between">
                                 <h2 class="font-display text-5xl font-bold mb-2" style="color: #fbaf1b;">2. Signal</h2>
                                 <p class="text-xs text-gray-400 mb-4">🤔 Think & Signal</p>
                                 <ul class="text-left text-gray-300 text-lg space-y-2 list-disc pl-8 mt-4 font-medium">
@@ -424,8 +427,8 @@
                                 <span class="ml-2 text-sm font-semibold">Click or Press Enter for Details</span>
                             </div>
                         </div>
-                        <div class="card-face card-face-back rounded-2xl shadow-xl p-6 bg-gray-800 border-t-8" style="border-color: #fbaf1b;">
-                            <div>
+                        <div class="card-face card-face-back rounded-2xl shadow-xl bg-gray-800 border-t-8" style="border-color: #fbaf1b;">
+                            <div class="h-full">
                                 <h3 class="font-display text-2xl font-bold mb-3" style="color: #fbaf1b;">What You Do: Signal</h3>
                                 <p class="text-left text-gray-300 text-sm mb-4">
                                     <strong>Your job:</strong> This is YOUR thinking time. No one's judging you yet. Use this silent time to actually form your thoughts—don't just wait to be called on.
@@ -476,10 +479,10 @@
                 </article>
 
                 <!-- Card 3: Stems -->
-                <article class="card-container min-h-[28rem] w-full sm:w-80" data-step="2" tabindex="0" role="button" aria-label="Stems step - Click to flip card">
+                <article class="card-container w-full sm:w-80 lg:w-96" data-step="2" tabindex="0" role="button" aria-label="Stems step - Click to flip card">
                     <div class="card w-full h-full">
-                        <div class="card-face rounded-2xl shadow-xl p-6 text-center bg-gray-800 border-t-8" style="border-color: #239ad6;">
-                            <div>
+                        <div class="card-face rounded-2xl shadow-xl bg-gray-800 border-t-8" style="border-color: #239ad6;">
+                            <div class="flex flex-col h-full justify-between">
                                 <h2 class="font-display text-5xl font-bold mb-2" style="color: #239ad6;">3. Stems</h2>
                                 <p class="text-xs text-gray-400 mb-4">💬 Choose Your Words</p>
                                 <ul class="text-left text-gray-300 text-lg space-y-2 list-disc pl-8 mt-4 font-medium">
@@ -493,8 +496,8 @@
                                 <span class="ml-2 text-sm font-semibold">Click or Press Enter for Details</span>
                             </div>
                         </div>
-                        <div class="card-face card-face-back rounded-2xl shadow-xl p-6 bg-gray-800 border-t-8" style="border-color: #239ad6;">
-                            <div>
+                        <div class="card-face card-face-back rounded-2xl shadow-xl bg-gray-800 border-t-8" style="border-color: #239ad6;">
+                            <div class="h-full">
                                 <h3 class="font-display text-2xl font-bold mb-3" style="color: #239ad6;">What You Do: Stems</h3>
                                 <p class="text-left text-gray-300 text-sm mb-4">
                                     <strong>Your job:</strong> These sentence starters make you sound confident and organized. Pick one that fits your idea, then plug in your thoughts. It's like a template that makes your answer instantly better.
@@ -557,10 +560,10 @@
                 </article>
 
                 <!-- Card 4: Share -->
-                <article class="card-container min-h-[28rem] w-full sm:w-80" data-step="3" tabindex="0" role="button" aria-label="Share step - Click to flip card">
+                <article class="card-container w-full sm:w-80 lg:w-96" data-step="3" tabindex="0" role="button" aria-label="Share step - Click to flip card">
                     <div class="card w-full h-full">
-                        <div class="card-face rounded-2xl shadow-xl p-6 text-center bg-gray-800 border-t-8" style="border-color: #41ba78;">
-                            <div>
+                        <div class="card-face rounded-2xl shadow-xl bg-gray-800 border-t-8" style="border-color: #41ba78;">
+                            <div class="flex flex-col h-full justify-between">
                                 <h2 class="font-display text-5xl font-bold mb-2" style="color: #41ba78;">4. Share</h2>
                                 <p class="text-xs text-gray-400 mb-4">🗣️ Practice First</p>
                                 <ul class="text-left text-gray-300 text-lg space-y-2 list-disc pl-8 mt-4 font-medium">
@@ -574,8 +577,8 @@
                                 <span class="ml-2 text-sm font-semibold">Click or Press Enter for Details</span>
                             </div>
                         </div>
-                        <div class="card-face card-face-back rounded-2xl shadow-xl p-6 bg-gray-800 border-t-8" style="border-color: #41ba78;">
-                            <div>
+                        <div class="card-face card-face-back rounded-2xl shadow-xl bg-gray-800 border-t-8" style="border-color: #41ba78;">
+                            <div class="h-full">
                                 <h3 class="font-display text-2xl font-bold mb-3" style="color: #41ba78;">What You Do: Share</h3>
                                 <p class="text-left text-gray-300 text-sm mb-4">
                                     <strong>Your job:</strong> This is your "practice run" before speaking to the whole class. Share your idea with one or two classmates, hear their thoughts, and refine your answer. Way less pressure than talking to everyone at once.
@@ -626,10 +629,10 @@
                 </article>
 
                 <!-- Card 5: Assess -->
-                <article class="card-container min-h-[28rem] w-full sm:w-80" data-step="4" tabindex="0" role="button" aria-label="Assess step - Click to flip card">
+                <article class="card-container w-full sm:w-80 lg:w-96" data-step="4" tabindex="0" role="button" aria-label="Assess step - Click to flip card">
                     <div class="card w-full h-full">
-                        <div class="card-face rounded-2xl shadow-xl p-6 text-center bg-gray-800 border-t-8" style="border-color: #b285bc;">
-                            <div>
+                        <div class="card-face rounded-2xl shadow-xl bg-gray-800 border-t-8" style="border-color: #b285bc;">
+                            <div class="flex flex-col h-full justify-between">
                                 <h2 class="font-display text-5xl font-bold mb-2" style="color: #b285bc;">5. Assess</h2>
                                 <p class="text-xs text-gray-400 mb-4">🎤 Share with the Class</p>
                                 <ul class="text-left text-gray-300 text-lg space-y-2 list-disc pl-8 mt-4 font-medium">
@@ -643,8 +646,8 @@
                                 <span class="ml-2 text-sm font-semibold">Click or Press Enter for Details</span>
                             </div>
                         </div>
-                        <div class="card-face card-face-back rounded-2xl shadow-xl p-6 bg-gray-800 border-t-8" style="border-color: #b285bc;">
-                            <div>
+                        <div class="card-face card-face-back rounded-2xl shadow-xl bg-gray-800 border-t-8" style="border-color: #b285bc;">
+                            <div class="h-full">
                                 <h3 class="font-display text-2xl font-bold mb-3" style="color: #b285bc;">What You Do: Assess</h3>
                                 <p class="text-left text-gray-300 text-sm mb-4">
                                     <strong>Your job:</strong> This is the "real deal"—sharing with the whole class. You might be called on randomly, so stay ready. But even if you're not called on, listen actively and engage mentally. This is where you show what you've got.
