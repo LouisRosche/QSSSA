@@ -3,32 +3,111 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QSSSA Interactive Poster - Kairos Dark Edition</title>
+
+    <!-- SEO Meta Tags -->
+    <title>QSSSA Interactive Guide - Question, Signal, Stems, Share, Assess | Teaching Strategy</title>
+    <meta name="description" content="Master the QSSSA teaching strategy with our interactive guide. Learn how to use Question, Signal, Stems, Share, and Assess to foster deeper learning and critical thinking in your classroom.">
+    <meta name="keywords" content="QSSSA, teaching strategy, classroom discussion, critical thinking, academic language, formative assessment, pedagogy, education">
+    <meta name="author" content="QSSSA Educational Resources">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yoursite.com/qsssa">
+    <meta property="og:title" content="QSSSA Interactive Guide - A Structured Conversation Strategy for Deeper Learning">
+    <meta property="og:description" content="Transform your classroom discussions with QSSSA. Interactive guide with examples, resources, and practical implementation tips for K-12 educators.">
+    <meta property="og:image" content="https://yoursite.com/qsssa-preview.png">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://yoursite.com/qsssa">
+    <meta name="twitter:title" content="QSSSA Interactive Guide - Teaching Strategy">
+    <meta name="twitter:description" content="Transform classroom discussions with QSSSA. Interactive guide for K-12 educators.">
+    <meta name="twitter:image" content="https://yoursite.com/qsssa-preview.png">
+
+    <!-- PWA / Mobile -->
+    <meta name="theme-color" content="#111827">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="manifest" href="manifest.json">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
+
+    <!-- Fonts -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
     <style>
         /* Custom styles for Dark Mode */
+        :root {
+            --color-question: #f15c49;
+            --color-signal: #fbaf1b;
+            --color-stems: #239ad6;
+            --color-share: #41ba78;
+            --color-assess: #b285bc;
+            --color-accent: #a2c0f2;
+            --color-secondary: #40c1ce;
+        }
+
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #111827; /* Tailwind gray-900 */
+            background-color: #111827;
+            background-image:
+                radial-gradient(at 0% 0%, rgba(162, 192, 242, 0.05) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(64, 193, 206, 0.05) 0px, transparent 50%);
+            scroll-behavior: smooth;
         }
+
         .font-display {
             font-family: 'Atkinson Hyperlegible', sans-serif;
         }
+
+        /* Skip to main content link for accessibility */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--color-accent);
+            color: #111827;
+            padding: 8px;
+            text-decoration: none;
+            z-index: 100;
+            font-weight: 600;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
         /* Card styling for the flip effect */
         .card-container {
             perspective: 1200px;
+            transition: transform 0.2s ease;
         }
+
+        .card-container:hover {
+            transform: translateY(-4px);
+        }
+
+        .card-container:focus-within {
+            outline: 3px solid var(--color-accent);
+            outline-offset: 4px;
+            border-radius: 1rem;
+        }
+
         .card {
             transform-style: preserve-3d;
             transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
         }
+
         .card.is-flipped {
             transform: rotateY(180deg);
         }
+
         .card-face {
             -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
@@ -40,165 +119,1082 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            overflow: hidden;
+            overflow-y: auto;
         }
+
         .card-face-back {
             transform: rotateY(180deg);
-            justify-content: center;
+        }
+
+        /* Progress indicator */
+        .progress-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #374151;
+            transition: all 0.3s ease;
+        }
+
+        .progress-dot.explored {
+            background: var(--color-accent);
+            box-shadow: 0 0 10px rgba(162, 192, 242, 0.5);
+        }
+
+        /* Smooth animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        /* Filter buttons */
+        .filter-btn {
+            transition: all 0.2s ease;
+        }
+
+        .filter-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .filter-btn.active {
+            background: var(--color-accent);
+            color: #111827;
+            font-weight: 700;
+        }
+
+        /* Resource cards */
+        .resource-card {
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--color-accent);
+            box-shadow: 0 10px 30px rgba(162, 192, 242, 0.2);
+        }
+
+        /* Badge styling */
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Print styles */
+        @media print {
+            body {
+                background: white;
+                color: black;
+            }
+
+            .no-print {
+                display: none !important;
+            }
+
+            .card-container {
+                page-break-inside: avoid;
+                perspective: none;
+            }
+
+            .card-face-back {
+                position: relative;
+                transform: none;
+                margin-top: 1rem;
+            }
+
+            .card {
+                transform: none !important;
+            }
+        }
+
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Share button animation */
+        .share-btn {
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .share-btn:hover {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        /* Tooltip */
+        .tooltip {
+            position: relative;
+        }
+
+        .tooltip:hover::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 0.5rem 1rem;
+            background: #1f2937;
+            color: white;
+            border-radius: 0.5rem;
+            white-space: nowrap;
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+            z-index: 10;
+        }
+
+        /* Examples styling */
+        .example-item {
+            border-left: 4px solid;
+            padding-left: 1rem;
+            margin: 0.75rem 0;
+        }
+
+        /* Accessibility: reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
         }
     </style>
 </head>
-<body class="min-h-screen flex items-center justify-center p-4 sm:p-6">
-    <div class="w-full max-w-7xl mx-auto">
-        <!-- Header Section -->
-        <header class="text-center mb-12">
-            <h1 class="font-display text-7xl md:text-8xl font-bold tracking-tight" style="color: #a2c0f2;">QSSSA</h1>
-            <p class="text-xl md:text-2xl mt-2 font-medium" style="color: #40c1ce;">A Structured Conversation Strategy for Deeper Learning</p>
-        </header>
+<body class="min-h-screen flex flex-col p-4 sm:p-6">
+    <!-- Skip to main content -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
 
-        <!-- Main Flex container for cards -->
-        <div class="flex flex-wrap justify-center gap-8">
-            
-            <!-- Card 1: Question -->
-            <div class="card-container min-h-[24rem] w-full sm:w-80" onclick="this.querySelector('.card').classList.toggle('is-flipped')">
-                <div class="card w-full h-full cursor-pointer">
-                    <div class="card-face rounded-2xl shadow-xl p-6 text-center bg-gray-800 border-t-8" style="border-color: #f15c49;">
-                        <div>
-                            <h2 class="font-display text-5xl font-bold" style="color: #f15c49;">1. Question</h2>
-                            <ul class="text-left text-gray-300 text-lg space-y-2 list-disc pl-8 mt-4 font-medium">
-                                <li>Pose an open-ended question</li>
-                                <li>Incorporate rich vocabulary</li>
-                                <li>Keep the question visible</li>
-                            </ul>
-                        </div>
-                        <div class="flex items-center justify-center text-gray-500 mt-4">
-                           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 21v-3.37a4 4 0 0 0-1.24-2.83L5 11.5V6a3 3 0 0 1 3-3h3"/><path d="M21 3 13 11"/><path d="M9 17v-2.5a3.5 3.5 0 0 1 7 0V17"/></svg>
-                            <span class="ml-2 text-sm font-semibold">Click for Details</span>
-                        </div>
-                    </div>
-                    <div class="card-face card-face-back rounded-2xl shadow-xl p-6 bg-gray-800 border-t-8" style="border-color: #f15c49;">
-                        <h3 class="font-display text-2xl font-bold mb-3" style="color: #f15c49;">Deeper Dive: Question</h3>
-                        <p class="text-left text-gray-300 text-base">
-                            <strong>Why it works:</strong> An effective question is the catalyst for critical thinking. It sets the purpose for the conversation and challenges students to move beyond surface-level answers.
-                            <br><br>
-                            <strong>Example:</strong> Instead of "What was the main character's name?", ask "How did the character's decision at the beginning of the story influence the final outcome?"
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Card 2: Signal -->
-            <div class="card-container min-h-[24rem] w-full sm:w-80" onclick="this.querySelector('.card').classList.toggle('is-flipped')">
-                <div class="card w-full h-full cursor-pointer">
-                    <div class="card-face rounded-2xl shadow-xl p-6 text-center bg-gray-800 border-t-8" style="border-color: #fbaf1b;">
-                        <div>
-                            <h2 class="font-display text-5xl font-bold" style="color: #fbaf1b;">2. Signal</h2>
-                            <ul class="text-left text-gray-300 text-lg space-y-2 list-disc pl-8 mt-4 font-medium">
-                                <li>Provide silent thinking time</li>
-                                <li>Students use a non-verbal signal</li>
-                                <li>Wait for high participation</li>
-                            </ul>
-                        </div>
-                        <div class="flex items-center justify-center text-gray-500 mt-4">
-                           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 21v-3.37a4 4 0 0 0-1.24-2.83L5 11.5V6a3 3 0 0 1 3-3h3"/><path d="M21 3 13 11"/><path d="M9 17v-2.5a3.5 3.5 0 0 1 7 0V17"/></svg>
-                            <span class="ml-2 text-sm font-semibold">Click for Details</span>
-                        </div>
-                    </div>
-                    <div class="card-face card-face-back rounded-2xl shadow-xl p-6 bg-gray-800 border-t-8" style="border-color: #fbaf1b;">
-                        <h3 class="font-display text-2xl font-bold mb-3" style="color: #fbaf1b;">Deeper Dive: Signal</h3>
-                        <p class="text-left text-gray-300 text-base">
-                           <strong>Why it works:</strong> This step ensures equity of voice. It gives all students, especially introverted thinkers or language learners, the time they need to formulate their thoughts before speaking.
-                           <br><br>
-                           <strong>Pro-Tip:</strong> Establish a clear, consistent signal (e.g., thumbs-up on their chest) and hold students accountable for using it. This builds a classroom culture of thoughtful participation.
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Card 3: Stems -->
-            <div class="card-container min-h-[24rem] w-full sm:w-80" onclick="this.querySelector('.card').classList.toggle('is-flipped')">
-                 <div class="card w-full h-full cursor-pointer">
-                    <div class="card-face rounded-2xl shadow-xl p-6 text-center bg-gray-800 border-t-8" style="border-color: #239ad6;">
-                        <div>
-                            <h2 class="font-display text-5xl font-bold" style="color: #239ad6;">3. Stems</h2>
-                            <ul class="text-left text-gray-300 text-lg space-y-2 list-disc pl-8 mt-4 font-medium">
-                                <li>Provide academic sentence stems</li>
-                                <li>Model how to use the stems</li>
-                                <li>Connect stems to the question</li>
-                            </ul>
-                        </div>
-                        <div class="flex items-center justify-center text-gray-500 mt-4">
-                           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 21v-3.37a4 4 0 0 0-1.24-2.83L5 11.5V6a3 3 0 0 1 3-3h3"/><path d="M21 3 13 11"/><path d="M9 17v-2.5a3.5 3.5 0 0 1 7 0V17"/></svg>
-                            <span class="ml-2 text-sm font-semibold">Click for Details</span>
-                        </div>
-                    </div>
-                    <div class="card-face card-face-back rounded-2xl shadow-xl p-6 bg-gray-800 border-t-8" style="border-color: #239ad6;">
-                        <h3 class="font-display text-2xl font-bold mb-3" style="color: #239ad6;">Deeper Dive: Stems</h3>
-                        <p class="text-left text-gray-300 text-base">
-                           <strong>Why it works:</strong> Stems provide a scaffold for academic language, helping students articulate their ideas clearly and professionally. They are a bridge from informal thought to formal discourse.
-                           <br><br>
-                           <strong>Examples:</strong> "I infer that..." for making a conclusion; "A different perspective is..." for disagreeing respectfully; "Based on the evidence, I conclude..." for analysis.
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Card 4: Share -->
-            <div class="card-container min-h-[24rem] w-full sm:w-80" onclick="this.querySelector('.card').classList.toggle('is-flipped')">
-                <div class="card w-full h-full cursor-pointer">
-                    <div class="card-face rounded-2xl shadow-xl p-6 text-center bg-gray-800 border-t-8" style="border-color: #41ba78;">
-                        <div>
-                           <h2 class="font-display text-5xl font-bold" style="color: #41ba78;">4. Share</h2>
-                            <ul class="text-left text-gray-300 text-lg space-y-2 list-disc pl-8 mt-4 font-medium">
-                                <li>Students share in pairs/triads</li>
-                                <li>Encourage active listening</li>
-                                <li>Low-stakes practice opportunity</li>
-                            </ul>
-                        </div>
-                        <div class="flex items-center justify-center text-gray-500 mt-4">
-                           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 21v-3.37a4 4 0 0 0-1.24-2.83L5 11.5V6a3 3 0 0 1 3-3h3"/><path d="M21 3 13 11"/><path d="M9 17v-2.5a3.5 3.5 0 0 1 7 0V17"/></svg>
-                            <span class="ml-2 text-sm font-semibold">Click for Details</span>
-                        </div>
-                    </div>
-                    <div class="card-face card-face-back rounded-2xl shadow-xl p-6 bg-gray-800 border-t-8" style="border-color: #41ba78;">
-                        <h3 class="font-display text-2xl font-bold mb-3" style="color: #41ba78;">Deeper Dive: Share</h3>
-                        <p class="text-left text-gray-300 text-base">
-                           <strong>Why it works:</strong> Small group sharing builds confidence and allows every student to verbalize their thinking. It's a rehearsal for whole-group discussion and a chance to refine ideas with peers.
-                           <br><br>
-                           <strong>Pro-Tip:</strong> Give clear roles during sharing, such as Speaker 1, Speaker 2, and a "Builder" who adds on to the ideas. This promotes focused conversation.
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Card 5: Assess -->
-            <div class="card-container min-h-[24rem] w-full sm:w-80" onclick="this.querySelector('.card').classList.toggle('is-flipped')">
-                <div class="card w-full h-full cursor-pointer">
-                    <div class="card-face rounded-2xl shadow-xl p-6 text-center bg-gray-800 border-t-8" style="border-color: #b285bc;">
-                        <div>
-                            <h2 class="font-display text-5xl font-bold" style="color: #b285bc;">5. Assess</h2>
-                            <ul class="text-left text-gray-300 text-lg space-y-2 list-disc pl-8 mt-4 font-medium">
-                                <li>Randomly call on students</li>
-                                <li>Listen for understanding</li>
-                                <li>Provide specific feedback</li>
-                            </ul>
-                        </div>
-                        <div class="flex items-center justify-center text-gray-500 mt-4">
-                           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 21v-3.37a4 4 0 0 0-1.24-2.83L5 11.5V6a3 3 0 0 1 3-3h3"/><path d="M21 3 13 11"/><path d="M9 17v-2.5a3.5 3.5 0 0 1 7 0V17"/></svg>
-                            <span class="ml-2 text-sm font-semibold">Click for Details</span>
-                        </div>
-                    </div>
-                    <div class="card-face card-face-back rounded-2xl shadow-xl p-6 bg-gray-800 border-t-8" style="border-color: #b285bc;">
-                        <h3 class="font-display text-2xl font-bold mb-3" style="color: #b285bc;">Deeper Dive: Assess</h3>
-                        <p class="text-left text-gray-300 text-base">
-                           <strong>Why it works:</strong> This is a formative assessment checkpoint. It makes student thinking visible to the whole class and allows the teacher to identify trends, clarify misconceptions, and plan next steps.
-                           <br><br>
-                           <strong>Pro-Tip:</strong> Use this as an opportunity to celebrate strong academic language and critical thinking. Amplify student voices who effectively used the sentence stems or provided unique insights.
-                        </p>
-                    </div>
-                </div>
-            </div>
+    <!-- Progress Tracker -->
+    <div class="no-print fixed top-4 right-4 bg-gray-800 rounded-full px-4 py-2 shadow-lg z-50 flex items-center gap-2" role="status" aria-live="polite">
+        <span class="text-xs text-gray-400 font-medium">Progress:</span>
+        <div class="flex gap-2" id="progress-dots">
+            <div class="progress-dot" data-step="0" aria-label="Question step"></div>
+            <div class="progress-dot" data-step="1" aria-label="Signal step"></div>
+            <div class="progress-dot" data-step="2" aria-label="Stems step"></div>
+            <div class="progress-dot" data-step="3" aria-label="Share step"></div>
+            <div class="progress-dot" data-step="4" aria-label="Assess step"></div>
         </div>
     </div>
+
+    <div class="w-full max-w-7xl mx-auto flex-grow">
+        <!-- Header Section -->
+        <header class="text-center mb-12 animate-fade-in">
+            <h1 class="font-display text-6xl md:text-8xl font-bold tracking-tight" style="color: #a2c0f2;">
+                QSSSA
+            </h1>
+            <p class="text-xl md:text-2xl mt-2 font-medium" style="color: #40c1ce;">
+                A Structured Conversation Strategy for Deeper Learning
+            </p>
+            <p class="text-gray-400 mt-4 max-w-3xl mx-auto text-sm md:text-base">
+                ✨ Welcome, educator! This interactive guide will help you master QSSSA, a powerful framework that transforms classroom discussions into meaningful learning experiences. Click any card to explore deeper insights, practical examples, and implementation tips.
+            </p>
+
+            <!-- Social Share Buttons -->
+            <div class="no-print flex justify-center gap-3 mt-6" role="group" aria-label="Share this resource">
+                <button onclick="shareResource('twitter')" class="share-btn bg-gray-800 hover:bg-blue-500 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-2" aria-label="Share on Twitter">
+                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/></svg>
+                    Share
+                </button>
+                <button onclick="shareResource('linkedin')" class="share-btn bg-gray-800 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-2" aria-label="Share on LinkedIn">
+                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+                    Share
+                </button>
+                <button onclick="shareResource('email')" class="share-btn bg-gray-800 hover:bg-green-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-2" aria-label="Share via email">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                    Email
+                </button>
+                <button onclick="window.print()" class="share-btn bg-gray-800 hover:bg-purple-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-2" aria-label="Print this guide">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><path d="M6 14h12v8H6z"/></svg>
+                    Print
+                </button>
+            </div>
+        </header>
+
+        <!-- Filter Section -->
+        <section class="no-print mb-8" aria-label="Filter examples">
+            <div class="bg-gray-800 rounded-xl p-6 shadow-lg">
+                <h2 class="text-white font-display text-lg mb-4 flex items-center gap-2">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z"/></svg>
+                    Filter Examples by:
+                </h2>
+                <div class="flex flex-wrap gap-3">
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-gray-400 text-sm font-medium">Grade Level:</span>
+                        <button class="filter-btn active bg-gray-700 text-white px-3 py-1 rounded-full text-sm" data-filter="all" onclick="filterExamples('all')">All</button>
+                        <button class="filter-btn bg-gray-700 text-white px-3 py-1 rounded-full text-sm" data-filter="k-2" onclick="filterExamples('k-2')">K-2</button>
+                        <button class="filter-btn bg-gray-700 text-white px-3 py-1 rounded-full text-sm" data-filter="3-5" onclick="filterExamples('3-5')">3-5</button>
+                        <button class="filter-btn bg-gray-700 text-white px-3 py-1 rounded-full text-sm" data-filter="6-8" onclick="filterExamples('6-8')">6-8</button>
+                        <button class="filter-btn bg-gray-700 text-white px-3 py-1 rounded-full text-sm" data-filter="9-12" onclick="filterExamples('9-12')">9-12</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Cards Section -->
+        <main id="main-content" role="main">
+            <div class="flex flex-wrap justify-center gap-8">
+
+                <!-- Card 1: Question -->
+                <article class="card-container min-h-[28rem] w-full sm:w-80" data-step="0" tabindex="0" role="button" aria-label="Question step - Click to flip card">
+                    <div class="card w-full h-full">
+                        <div class="card-face rounded-2xl shadow-xl p-6 text-center bg-gray-800 border-t-8" style="border-color: #f15c49;">
+                            <div>
+                                <h2 class="font-display text-5xl font-bold mb-2" style="color: #f15c49;">1. Question</h2>
+                                <p class="text-xs text-gray-400 mb-4">⏱️ Time: 1-2 minutes</p>
+                                <ul class="text-left text-gray-300 text-lg space-y-2 list-disc pl-8 mt-4 font-medium">
+                                    <li>Pose an open-ended question</li>
+                                    <li>Incorporate rich vocabulary</li>
+                                    <li>Keep the question visible</li>
+                                </ul>
+                            </div>
+                            <div class="flex items-center justify-center text-gray-500 mt-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 21v-3.37a4 4 0 0 0-1.24-2.83L5 11.5V6a3 3 0 0 1 3-3h3"/><path d="M21 3 13 11"/><path d="M9 17v-2.5a3.5 3.5 0 0 1 7 0V17"/></svg>
+                                <span class="ml-2 text-sm font-semibold">Click or Press Enter for Details</span>
+                            </div>
+                        </div>
+                        <div class="card-face card-face-back rounded-2xl shadow-xl p-6 bg-gray-800 border-t-8" style="border-color: #f15c49;">
+                            <div>
+                                <h3 class="font-display text-2xl font-bold mb-3" style="color: #f15c49;">Deeper Dive: Question</h3>
+                                <p class="text-left text-gray-300 text-sm mb-4">
+                                    <strong>Why it works:</strong> An effective question is the catalyst for critical thinking. It sets the purpose for the conversation and challenges students to move beyond surface-level answers.
+                                </p>
+
+                                <div class="space-y-3 text-sm">
+                                    <div class="example-item" style="border-color: #f15c49;" data-grade="k-2">
+                                        <span class="badge bg-blue-900 text-blue-200">K-2 | ELA</span>
+                                        <p class="text-gray-300 mt-1"><strong>Instead of:</strong> "What color is the cat?"<br><strong>Try:</strong> "How do you think the character felt when they lost their pet, and why?"</p>
+                                    </div>
+
+                                    <div class="example-item" style="border-color: #f15c49;" data-grade="3-5">
+                                        <span class="badge bg-green-900 text-green-200">3-5 | Science</span>
+                                        <p class="text-gray-300 mt-1"><strong>Instead of:</strong> "What is photosynthesis?"<br><strong>Try:</strong> "How might plants adapt their photosynthesis process in different environments?"</p>
+                                    </div>
+
+                                    <div class="example-item" style="border-color: #f15c49;" data-grade="6-8">
+                                        <span class="badge bg-purple-900 text-purple-200">6-8 | Math</span>
+                                        <p class="text-gray-300 mt-1"><strong>Instead of:</strong> "What's the formula?"<br><strong>Try:</strong> "How can we use proportional relationships to predict real-world outcomes?"</p>
+                                    </div>
+
+                                    <div class="example-item" style="border-color: #f15c49;" data-grade="9-12">
+                                        <span class="badge bg-red-900 text-red-200">9-12 | History</span>
+                                        <p class="text-gray-300 mt-1"><strong>Instead of:</strong> "When did WWI start?"<br><strong>Try:</strong> "How did the alliances formed before WWI make conflict inevitable, and what parallels exist today?"</p>
+                                    </div>
+                                </div>
+
+                                <div class="mt-4 bg-gray-900 rounded-lg p-3">
+                                    <p class="text-xs text-yellow-400">💡 <strong>Pro-Tip:</strong> Post the question visually (board, slide, anchor chart) so students can reference it throughout the discussion.</p>
+                                </div>
+
+                                <div class="mt-3 bg-red-900 bg-opacity-20 rounded-lg p-3">
+                                    <p class="text-xs text-red-300">⚠️ <strong>Common Pitfall:</strong> Asking yes/no questions or questions with single correct answers limits thinking.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Card 2: Signal -->
+                <article class="card-container min-h-[28rem] w-full sm:w-80" data-step="1" tabindex="0" role="button" aria-label="Signal step - Click to flip card">
+                    <div class="card w-full h-full">
+                        <div class="card-face rounded-2xl shadow-xl p-6 text-center bg-gray-800 border-t-8" style="border-color: #fbaf1b;">
+                            <div>
+                                <h2 class="font-display text-5xl font-bold mb-2" style="color: #fbaf1b;">2. Signal</h2>
+                                <p class="text-xs text-gray-400 mb-4">⏱️ Time: 30-60 seconds</p>
+                                <ul class="text-left text-gray-300 text-lg space-y-2 list-disc pl-8 mt-4 font-medium">
+                                    <li>Provide silent thinking time</li>
+                                    <li>Students use a non-verbal signal</li>
+                                    <li>Wait for high participation</li>
+                                </ul>
+                            </div>
+                            <div class="flex items-center justify-center text-gray-500 mt-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 21v-3.37a4 4 0 0 0-1.24-2.83L5 11.5V6a3 3 0 0 1 3-3h3"/><path d="M21 3 13 11"/><path d="M9 17v-2.5a3.5 3.5 0 0 1 7 0V17"/></svg>
+                                <span class="ml-2 text-sm font-semibold">Click or Press Enter for Details</span>
+                            </div>
+                        </div>
+                        <div class="card-face card-face-back rounded-2xl shadow-xl p-6 bg-gray-800 border-t-8" style="border-color: #fbaf1b;">
+                            <div>
+                                <h3 class="font-display text-2xl font-bold mb-3" style="color: #fbaf1b;">Deeper Dive: Signal</h3>
+                                <p class="text-left text-gray-300 text-sm mb-4">
+                                    <strong>Why it works:</strong> This step ensures equity of voice. It gives all students, especially introverted thinkers or language learners, the time they need to formulate their thoughts before speaking.
+                                </p>
+
+                                <div class="space-y-3 text-sm">
+                                    <div class="bg-gray-900 rounded-lg p-3">
+                                        <p class="text-gray-300"><strong>Signal Options:</strong></p>
+                                        <ul class="list-disc pl-5 mt-2 text-gray-400 space-y-1">
+                                            <li>👍 Thumbs up on chest (discrete, inclusive)</li>
+                                            <li>✊ Fist to five (shows confidence level)</li>
+                                            <li>📝 Write on whiteboard/paper (for written prep)</li>
+                                            <li>🟢 Digital signals (polling apps, reaction buttons)</li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="example-item" style="border-color: #fbaf1b;" data-grade="k-2">
+                                        <span class="badge bg-blue-900 text-blue-200">K-2 Strategy</span>
+                                        <p class="text-gray-300 mt-1">Use "thinking time" music (30 seconds of soft instrumental) as a consistent cue. Students put finger on nose when ready.</p>
+                                    </div>
+
+                                    <div class="example-item" style="border-color: #fbaf1b;" data-grade="3-5">
+                                        <span class="badge bg-green-900 text-green-200">3-5 Strategy</span>
+                                        <p class="text-gray-300 mt-1">Encourage students to jot down one key word or phrase during think time to anchor their thinking.</p>
+                                    </div>
+
+                                    <div class="example-item" style="border-color: #fbaf1b;" data-grade="6-8">
+                                        <span class="badge bg-purple-900 text-purple-200">6-8 Strategy</span>
+                                        <p class="text-gray-300 mt-1">Use fist-to-five: Students show how confident they feel (5 = very confident, 1 = need more time). Aim for 80%+ showing 3+.</p>
+                                    </div>
+
+                                    <div class="example-item" style="border-color: #fbaf1b;" data-grade="9-12">
+                                        <span class="badge bg-red-900 text-red-200">9-12 Strategy</span>
+                                        <p class="text-gray-300 mt-1">Quick-write (60 seconds): Students draft 2-3 sentences. Visual signal when complete. Promotes deeper formulation.</p>
+                                    </div>
+                                </div>
+
+                                <div class="mt-4 bg-gray-900 rounded-lg p-3">
+                                    <p class="text-xs text-yellow-400">💡 <strong>Equity Insight:</strong> Research shows wait time of 3+ seconds increases participation from multilingual learners by 40%.</p>
+                                </div>
+
+                                <div class="mt-3 bg-red-900 bg-opacity-20 rounded-lg p-3">
+                                    <p class="text-xs text-red-300">⚠️ <strong>Common Pitfall:</strong> Not waiting for 80%+ participation. Resist calling on the first hand up!</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Card 3: Stems -->
+                <article class="card-container min-h-[28rem] w-full sm:w-80" data-step="2" tabindex="0" role="button" aria-label="Stems step - Click to flip card">
+                    <div class="card w-full h-full">
+                        <div class="card-face rounded-2xl shadow-xl p-6 text-center bg-gray-800 border-t-8" style="border-color: #239ad6;">
+                            <div>
+                                <h2 class="font-display text-5xl font-bold mb-2" style="color: #239ad6;">3. Stems</h2>
+                                <p class="text-xs text-gray-400 mb-4">⏱️ Time: 1-2 minutes</p>
+                                <ul class="text-left text-gray-300 text-lg space-y-2 list-disc pl-8 mt-4 font-medium">
+                                    <li>Provide academic sentence stems</li>
+                                    <li>Model how to use the stems</li>
+                                    <li>Connect stems to the question</li>
+                                </ul>
+                            </div>
+                            <div class="flex items-center justify-center text-gray-500 mt-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 21v-3.37a4 4 0 0 0-1.24-2.83L5 11.5V6a3 3 0 0 1 3-3h3"/><path d="M21 3 13 11"/><path d="M9 17v-2.5a3.5 3.5 0 0 1 7 0V17"/></svg>
+                                <span class="ml-2 text-sm font-semibold">Click or Press Enter for Details</span>
+                            </div>
+                        </div>
+                        <div class="card-face card-face-back rounded-2xl shadow-xl p-6 bg-gray-800 border-t-8" style="border-color: #239ad6;">
+                            <div>
+                                <h3 class="font-display text-2xl font-bold mb-3" style="color: #239ad6;">Deeper Dive: Stems</h3>
+                                <p class="text-left text-gray-300 text-sm mb-4">
+                                    <strong>Why it works:</strong> Stems provide a scaffold for academic language, helping students articulate their ideas clearly and professionally. They are a bridge from informal thought to formal discourse.
+                                </p>
+
+                                <div class="space-y-3 text-sm">
+                                    <div class="bg-gray-900 rounded-lg p-3">
+                                        <p class="text-gray-300 mb-2"><strong>Essential Stem Categories:</strong></p>
+                                        <div class="space-y-2">
+                                            <div>
+                                                <p class="text-blue-400 font-semibold">Making Inferences:</p>
+                                                <p class="text-gray-400 text-xs">"Based on the evidence, I infer that..."<br>"This suggests that..."</p>
+                                            </div>
+                                            <div>
+                                                <p class="text-green-400 font-semibold">Building On Ideas:</p>
+                                                <p class="text-gray-400 text-xs">"To build on [name]'s idea..."<br>"This connects to what [name] said because..."</p>
+                                            </div>
+                                            <div>
+                                                <p class="text-purple-400 font-semibold">Respectful Disagreement:</p>
+                                                <p class="text-gray-400 text-xs">"I respectfully disagree because..."<br>"A different perspective is..."</p>
+                                            </div>
+                                            <div>
+                                                <p class="text-yellow-400 font-semibold">Analyzing:</p>
+                                                <p class="text-gray-400 text-xs">"The significance of this is..."<br>"This reveals that..."</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="example-item" style="border-color: #239ad6;" data-grade="k-2">
+                                        <span class="badge bg-blue-900 text-blue-200">K-2 Stems</span>
+                                        <p class="text-gray-300 mt-1">"I think... because..."<br>"I notice..."<br>"This reminds me of..."</p>
+                                    </div>
+
+                                    <div class="example-item" style="border-color: #239ad6;" data-grade="3-5">
+                                        <span class="badge bg-green-900 text-green-200">3-5 Stems</span>
+                                        <p class="text-gray-300 mt-1">"The evidence shows..."<br>"I can infer that... because..."<br>"The author's purpose was to..."</p>
+                                    </div>
+
+                                    <div class="example-item" style="border-color: #239ad6;" data-grade="6-8">
+                                        <span class="badge bg-purple-900 text-purple-200">6-8 Stems</span>
+                                        <p class="text-gray-300 mt-1">"The data suggests that..."<br>"A counterargument might be..."<br>"This phenomenon can be explained by..."</p>
+                                    </div>
+
+                                    <div class="example-item" style="border-color: #239ad6;" data-grade="9-12">
+                                        <span class="badge bg-red-900 text-red-200">9-12 Stems</span>
+                                        <p class="text-gray-300 mt-1">"The implications of this are..."<br>"Through a [theoretical lens], we can interpret..."<br>"The synthesis of these ideas reveals..."</p>
+                                    </div>
+                                </div>
+
+                                <div class="mt-4 bg-gray-900 rounded-lg p-3">
+                                    <p class="text-xs text-yellow-400">💡 <strong>Pro-Tip:</strong> Keep 3-4 stems visible on an anchor chart. Rotate them weekly to build students' repertoire.</p>
+                                </div>
+
+                                <div class="mt-3 bg-red-900 bg-opacity-20 rounded-lg p-3">
+                                    <p class="text-xs text-red-300">⚠️ <strong>Common Pitfall:</strong> Introducing too many stems at once. Start with 2-3 and add gradually.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Card 4: Share -->
+                <article class="card-container min-h-[28rem] w-full sm:w-80" data-step="3" tabindex="0" role="button" aria-label="Share step - Click to flip card">
+                    <div class="card w-full h-full">
+                        <div class="card-face rounded-2xl shadow-xl p-6 text-center bg-gray-800 border-t-8" style="border-color: #41ba78;">
+                            <div>
+                                <h2 class="font-display text-5xl font-bold mb-2" style="color: #41ba78;">4. Share</h2>
+                                <p class="text-xs text-gray-400 mb-4">⏱️ Time: 2-3 minutes</p>
+                                <ul class="text-left text-gray-300 text-lg space-y-2 list-disc pl-8 mt-4 font-medium">
+                                    <li>Students share in pairs/triads</li>
+                                    <li>Encourage active listening</li>
+                                    <li>Low-stakes practice opportunity</li>
+                                </ul>
+                            </div>
+                            <div class="flex items-center justify-center text-gray-500 mt-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 21v-3.37a4 4 0 0 0-1.24-2.83L5 11.5V6a3 3 0 0 1 3-3h3"/><path d="M21 3 13 11"/><path d="M9 17v-2.5a3.5 3.5 0 0 1 7 0V17"/></svg>
+                                <span class="ml-2 text-sm font-semibold">Click or Press Enter for Details</span>
+                            </div>
+                        </div>
+                        <div class="card-face card-face-back rounded-2xl shadow-xl p-6 bg-gray-800 border-t-8" style="border-color: #41ba78;">
+                            <div>
+                                <h3 class="font-display text-2xl font-bold mb-3" style="color: #41ba78;">Deeper Dive: Share</h3>
+                                <p class="text-left text-gray-300 text-sm mb-4">
+                                    <strong>Why it works:</strong> Small group sharing builds confidence and allows every student to verbalize their thinking. It's a rehearsal for whole-group discussion and a chance to refine ideas with peers.
+                                </p>
+
+                                <div class="space-y-3 text-sm">
+                                    <div class="bg-gray-900 rounded-lg p-3">
+                                        <p class="text-gray-300 mb-2"><strong>Sharing Structures:</strong></p>
+                                        <div class="space-y-2 text-gray-400 text-xs">
+                                            <p><strong>Turn & Talk:</strong> Partners take turns (30 sec each)</p>
+                                            <p><strong>Triad Share:</strong> Person 1 shares → Person 2 builds on → Person 3 synthesizes</p>
+                                            <p><strong>Rally Robin:</strong> Partners alternate sharing ideas back and forth</p>
+                                            <p><strong>Think-Pair-Share:</strong> Individual thinking → Pair discussion → Whole group</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="example-item" style="border-color: #41ba78;" data-grade="k-2">
+                                        <span class="badge bg-blue-900 text-blue-200">K-2 Strategy</span>
+                                        <p class="text-gray-300 mt-1">Use "Elbow Partner" (person next to you). Set a timer. Speaker holds a talking stick/object. Listener makes eye contact.</p>
+                                    </div>
+
+                                    <div class="example-item" style="border-color: #41ba78;" data-grade="3-5">
+                                        <span class="badge bg-green-900 text-green-200">3-5 Strategy</span>
+                                        <p class="text-gray-300 mt-1">Assign roles: Speaker, Listener, Builder. Listener must restate what they heard before the Builder adds on.</p>
+                                    </div>
+
+                                    <div class="example-item" style="border-color: #41ba78;" data-grade="6-8">
+                                        <span class="badge bg-purple-900 text-purple-200">6-8 Strategy</span>
+                                        <p class="text-gray-300 mt-1">Triads with rotating roles: Presenter → Questioner → Connector. Each person takes all 3 roles across discussion.</p>
+                                    </div>
+
+                                    <div class="example-item" style="border-color: #41ba78;" data-grade="9-12">
+                                        <span class="badge bg-red-900 text-red-200">9-12 Strategy</span>
+                                        <p class="text-gray-300 mt-1">Structured academic conversation: Student A presents claim with evidence → Student B responds with counterclaim or extension → Both synthesize.</p>
+                                    </div>
+                                </div>
+
+                                <div class="mt-4 bg-gray-900 rounded-lg p-3">
+                                    <p class="text-xs text-yellow-400">💡 <strong>Pro-Tip:</strong> Circulate and eavesdrop! Note strong examples to amplify in the Assess phase. Celebrate specific language use.</p>
+                                </div>
+
+                                <div class="mt-3 bg-red-900 bg-opacity-20 rounded-lg p-3">
+                                    <p class="text-xs text-red-300">⚠️ <strong>Common Pitfall:</strong> Not giving clear time limits. Use a visible timer and verbal cues ("30 seconds remaining").</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Card 5: Assess -->
+                <article class="card-container min-h-[28rem] w-full sm:w-80" data-step="4" tabindex="0" role="button" aria-label="Assess step - Click to flip card">
+                    <div class="card w-full h-full">
+                        <div class="card-face rounded-2xl shadow-xl p-6 text-center bg-gray-800 border-t-8" style="border-color: #b285bc;">
+                            <div>
+                                <h2 class="font-display text-5xl font-bold mb-2" style="color: #b285bc;">5. Assess</h2>
+                                <p class="text-xs text-gray-400 mb-4">⏱️ Time: 3-5 minutes</p>
+                                <ul class="text-left text-gray-300 text-lg space-y-2 list-disc pl-8 mt-4 font-medium">
+                                    <li>Randomly call on students</li>
+                                    <li>Listen for understanding</li>
+                                    <li>Provide specific feedback</li>
+                                </ul>
+                            </div>
+                            <div class="flex items-center justify-center text-gray-500 mt-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 21v-3.37a4 4 0 0 0-1.24-2.83L5 11.5V6a3 3 0 0 1 3-3h3"/><path d="M21 3 13 11"/><path d="M9 17v-2.5a3.5 3.5 0 0 1 7 0V17"/></svg>
+                                <span class="ml-2 text-sm font-semibold">Click or Press Enter for Details</span>
+                            </div>
+                        </div>
+                        <div class="card-face card-face-back rounded-2xl shadow-xl p-6 bg-gray-800 border-t-8" style="border-color: #b285bc;">
+                            <div>
+                                <h3 class="font-display text-2xl font-bold mb-3" style="color: #b285bc;">Deeper Dive: Assess</h3>
+                                <p class="text-left text-gray-300 text-sm mb-4">
+                                    <strong>Why it works:</strong> This is a formative assessment checkpoint. It makes student thinking visible to the whole class and allows the teacher to identify trends, clarify misconceptions, and plan next steps.
+                                </p>
+
+                                <div class="space-y-3 text-sm">
+                                    <div class="bg-gray-900 rounded-lg p-3">
+                                        <p class="text-gray-300 mb-2"><strong>Assessment Strategies:</strong></p>
+                                        <div class="space-y-2 text-gray-400 text-xs">
+                                            <p><strong>Cold Call:</strong> Use popsicle sticks, random name generator (ensures equity)</p>
+                                            <p><strong>Think Aloud:</strong> Ask students to explain their reasoning process</p>
+                                            <p><strong>Revoice:</strong> "So you're saying..." (check understanding, validate)</p>
+                                            <p><strong>Press:</strong> "Can you say more?" "What evidence supports that?"</p>
+                                            <p><strong>Anchor Charts:</strong> Record key insights for future reference</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="example-item" style="border-color: #b285bc;" data-grade="k-2">
+                                        <span class="badge bg-blue-900 text-blue-200">K-2 Feedback</span>
+                                        <p class="text-gray-300 mt-1">"I loved how you said 'I think... because...' That's strong thinking! Let's all try that."</p>
+                                    </div>
+
+                                    <div class="example-item" style="border-color: #b285bc;" data-grade="3-5">
+                                        <span class="badge bg-green-900 text-green-200">3-5 Feedback</span>
+                                        <p class="text-gray-300 mt-1">"Your use of 'The evidence shows...' helped me understand your reasoning. Who else used evidence-based language?"</p>
+                                    </div>
+
+                                    <div class="example-item" style="border-color: #b285bc;" data-grade="6-8">
+                                        <span class="badge bg-purple-900 text-purple-200">6-8 Feedback</span>
+                                        <p class="text-gray-300 mt-1">"That's a sophisticated analysis. Can you push your thinking further—what are the implications?"</p>
+                                    </div>
+
+                                    <div class="example-item" style="border-color: #b285bc;" data-grade="9-12">
+                                        <span class="badge bg-red-900 text-red-200">9-12 Feedback</span>
+                                        <p class="text-gray-300 mt-1">"Your synthesis connected three different perspectives. Let's examine how that complexity enriches our understanding."</p>
+                                    </div>
+
+                                    <div class="bg-gray-900 rounded-lg p-3 mt-3">
+                                        <p class="text-gray-300 mb-2"><strong>What to Listen For:</strong></p>
+                                        <ul class="list-disc pl-5 text-gray-400 text-xs space-y-1">
+                                            <li>Use of academic language and sentence stems</li>
+                                            <li>Evidence-based reasoning</li>
+                                            <li>Making connections between ideas</li>
+                                            <li>Depth of critical thinking</li>
+                                            <li>Respectful disagreement and building on peers</li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="mt-4 bg-gray-900 rounded-lg p-3">
+                                    <p class="text-xs text-yellow-400">💡 <strong>Pro-Tip:</strong> Celebrate specific language: "Did everyone hear how Maya used 'This suggests'? That's college-level academic language!"</p>
+                                </div>
+
+                                <div class="mt-3 bg-red-900 bg-opacity-20 rounded-lg p-3">
+                                    <p class="text-xs text-red-300">⚠️ <strong>Common Pitfall:</strong> Only calling on volunteers. Use random selection to maintain high expectations for all.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </main>
+
+        <!-- Practical Resources Section -->
+        <section class="mt-16 mb-12" aria-labelledby="resources-heading">
+            <h2 id="resources-heading" class="font-display text-4xl font-bold text-center mb-8" style="color: #a2c0f2;">
+                📚 Practical Implementation Resources
+            </h2>
+            <p class="text-center text-gray-400 mb-8 max-w-2xl mx-auto">
+                Download these ready-to-use resources to bring QSSSA to life in your classroom. All materials are free and designed with love for educators.
+            </p>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Resource Card 1 -->
+                <div class="resource-card bg-gray-800 rounded-xl p-6 shadow-lg">
+                    <div class="flex items-start gap-4">
+                        <div class="bg-blue-900 bg-opacity-40 p-3 rounded-lg">
+                            <svg width="24" height="24" fill="none" stroke="#239ad6" stroke-width="2" viewBox="0 0 24 24">
+                                <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+                                <polyline points="14 2 14 8 20 8"/>
+                                <line x1="16" y1="13" x2="8" y2="13"/>
+                                <line x1="16" y1="17" x2="8" y2="17"/>
+                                <polyline points="10 9 9 9 8 9"/>
+                            </svg>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="font-display text-xl font-bold text-white mb-2">Quick Reference Guide</h3>
+                            <p class="text-gray-400 text-sm mb-3">One-page PDF with all 5 steps, timing, and key tips. Perfect for desk or bulletin board.</p>
+                            <button onclick="downloadResource('quick-reference')" class="text-blue-400 hover:text-blue-300 text-sm font-medium flex items-center gap-1">
+                                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+                                    <polyline points="7 10 12 15 17 10"/>
+                                    <line x1="12" y1="15" x2="12" y2="3"/>
+                                </svg>
+                                Download PDF
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Resource Card 2 -->
+                <div class="resource-card bg-gray-800 rounded-xl p-6 shadow-lg">
+                    <div class="flex items-start gap-4">
+                        <div class="bg-purple-900 bg-opacity-40 p-3 rounded-lg">
+                            <svg width="24" height="24" fill="none" stroke="#b285bc" stroke-width="2" viewBox="0 0 24 24">
+                                <path d="M9 11l3 3L22 4"/>
+                                <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/>
+                            </svg>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="font-display text-xl font-bold text-white mb-2">Implementation Checklist</h3>
+                            <p class="text-gray-400 text-sm mb-3">Step-by-step checklist for your first week using QSSSA. Track your progress!</p>
+                            <button onclick="downloadResource('checklist')" class="text-purple-400 hover:text-purple-300 text-sm font-medium flex items-center gap-1">
+                                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+                                    <polyline points="7 10 12 15 17 10"/>
+                                    <line x1="12" y1="15" x2="12" y2="3"/>
+                                </svg>
+                                Download PDF
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Resource Card 3 -->
+                <div class="resource-card bg-gray-800 rounded-xl p-6 shadow-lg">
+                    <div class="flex items-start gap-4">
+                        <div class="bg-green-900 bg-opacity-40 p-3 rounded-lg">
+                            <svg width="24" height="24" fill="none" stroke="#41ba78" stroke-width="2" viewBox="0 0 24 24">
+                                <path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
+                            </svg>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="font-display text-xl font-bold text-white mb-2">Sentence Stem Cards</h3>
+                            <p class="text-gray-400 text-sm mb-3">Printable cards organized by grade level. Cut and laminate for student reference!</p>
+                            <button onclick="downloadResource('stem-cards')" class="text-green-400 hover:text-green-300 text-sm font-medium flex items-center gap-1">
+                                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+                                    <polyline points="7 10 12 15 17 10"/>
+                                    <line x1="12" y1="15" x2="12" y2="3"/>
+                                </svg>
+                                Download PDF
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Resource Card 4 -->
+                <div class="resource-card bg-gray-800 rounded-xl p-6 shadow-lg">
+                    <div class="flex items-start gap-4">
+                        <div class="bg-red-900 bg-opacity-40 p-3 rounded-lg">
+                            <svg width="24" height="24" fill="none" stroke="#f15c49" stroke-width="2" viewBox="0 0 24 24">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                                <line x1="3" y1="9" x2="21" y2="9"/>
+                                <line x1="9" y1="21" x2="9" y2="9"/>
+                            </svg>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="font-display text-xl font-bold text-white mb-2">Lesson Plan Template</h3>
+                            <p class="text-gray-400 text-sm mb-3">Editable template for planning QSSSA discussions across any subject area.</p>
+                            <button onclick="downloadResource('lesson-template')" class="text-red-400 hover:text-red-300 text-sm font-medium flex items-center gap-1">
+                                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+                                    <polyline points="7 10 12 15 17 10"/>
+                                    <line x1="12" y1="15" x2="12" y2="3"/>
+                                </svg>
+                                Download PDF
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Resource Card 5 -->
+                <div class="resource-card bg-gray-800 rounded-xl p-6 shadow-lg">
+                    <div class="flex items-start gap-4">
+                        <div class="bg-yellow-900 bg-opacity-40 p-3 rounded-lg">
+                            <svg width="24" height="24" fill="none" stroke="#fbaf1b" stroke-width="2" viewBox="0 0 24 24">
+                                <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+                                <path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/>
+                            </svg>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="font-display text-xl font-bold text-white mb-2">Classroom Posters</h3>
+                            <p class="text-gray-400 text-sm mb-3">5 colorful posters (one per step) for classroom display. Print at 11x17 or larger!</p>
+                            <button onclick="downloadResource('posters')" class="text-yellow-400 hover:text-yellow-300 text-sm font-medium flex items-center gap-1">
+                                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+                                    <polyline points="7 10 12 15 17 10"/>
+                                    <line x1="12" y1="15" x2="12" y2="3"/>
+                                </svg>
+                                Download PDF
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Resource Card 6 -->
+                <div class="resource-card bg-gray-800 rounded-xl p-6 shadow-lg">
+                    <div class="flex items-start gap-4">
+                        <div class="bg-cyan-900 bg-opacity-40 p-3 rounded-lg">
+                            <svg width="24" height="24" fill="none" stroke="#40c1ce" stroke-width="2" viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="10"/>
+                                <polygon points="10 8 16 12 10 16 10 8"/>
+                            </svg>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="font-display text-xl font-bold text-white mb-2">Video Demonstrations</h3>
+                            <p class="text-gray-400 text-sm mb-3">Watch QSSSA in action across different grade levels and subjects.</p>
+                            <button onclick="downloadResource('videos')" class="text-cyan-400 hover:text-cyan-300 text-sm font-medium flex items-center gap-1">
+                                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
+                                    <polyline points="15 3 21 3 21 9"/>
+                                    <line x1="10" y1="14" x2="21" y2="3"/>
+                                </svg>
+                                View Playlist
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Success Indicators Section -->
+        <section class="mt-16 mb-12 bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-8 shadow-xl" aria-labelledby="success-heading">
+            <h2 id="success-heading" class="font-display text-3xl font-bold text-center mb-6" style="color: #a2c0f2;">
+                ✅ How You'll Know QSSSA Is Working
+            </h2>
+            <div class="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                <div class="bg-gray-900 bg-opacity-50 rounded-lg p-5">
+                    <h3 class="font-semibold text-white mb-3 flex items-center gap-2">
+                        <span class="text-2xl">👥</span>
+                        Student Engagement
+                    </h3>
+                    <ul class="text-gray-300 text-sm space-y-2">
+                        <li>• 80%+ participation in signaling readiness</li>
+                        <li>• Students naturally using sentence stems</li>
+                        <li>• Peer-to-peer building on ideas</li>
+                        <li>• Increased confidence in sharing</li>
+                    </ul>
+                </div>
+                <div class="bg-gray-900 bg-opacity-50 rounded-lg p-5">
+                    <h3 class="font-semibold text-white mb-3 flex items-center gap-2">
+                        <span class="text-2xl">🎯</span>
+                        Academic Outcomes
+                    </h3>
+                    <ul class="text-gray-300 text-sm space-y-2">
+                        <li>• Deeper, more nuanced responses</li>
+                        <li>• Evidence-based reasoning</li>
+                        <li>• Academic vocabulary in daily use</li>
+                        <li>• Transfer to writing and assessments</li>
+                    </ul>
+                </div>
+                <div class="bg-gray-900 bg-opacity-50 rounded-lg p-5">
+                    <h3 class="font-semibold text-white mb-3 flex items-center gap-2">
+                        <span class="text-2xl">💬</span>
+                        Classroom Culture
+                    </h3>
+                    <ul class="text-gray-300 text-sm space-y-2">
+                        <li>• Respectful disagreement normalized</li>
+                        <li>• Active listening behaviors visible</li>
+                        <li>• Equity in speaking opportunities</li>
+                        <li>• Student-led discussions emerging</li>
+                    </ul>
+                </div>
+                <div class="bg-gray-900 bg-opacity-50 rounded-lg p-5">
+                    <h3 class="font-semibold text-white mb-3 flex items-center gap-2">
+                        <span class="text-2xl">📈</span>
+                        Teacher Experience
+                    </h3>
+                    <ul class="text-gray-300 text-sm space-y-2">
+                        <li>• Rich formative assessment data</li>
+                        <li>• Routine becomes natural (3-5 uses)</li>
+                        <li>• Student thinking more visible</li>
+                        <li>• Differentiation opportunities clear</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="mt-16 mb-12" aria-labelledby="faq-heading">
+            <h2 id="faq-heading" class="font-display text-3xl font-bold text-center mb-8" style="color: #a2c0f2;">
+                ❓ Frequently Asked Questions
+            </h2>
+            <div class="max-w-3xl mx-auto space-y-4">
+                <details class="bg-gray-800 rounded-lg p-5 cursor-pointer group">
+                    <summary class="font-semibold text-white list-none flex justify-between items-center">
+                        How long does a full QSSSA cycle take?
+                        <svg class="w-5 h-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </summary>
+                    <p class="mt-3 text-gray-300 text-sm">Typically 8-12 minutes for a complete cycle. As students become familiar with the routine, you can move through steps more efficiently. The first few times may take longer as you establish expectations.</p>
+                </details>
+
+                <details class="bg-gray-800 rounded-lg p-5 cursor-pointer group">
+                    <summary class="font-semibold text-white list-none flex justify-between items-center">
+                        How often should I use QSSSA?
+                        <svg class="w-5 h-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </summary>
+                    <p class="mt-3 text-gray-300 text-sm">Start with 2-3 times per week to build the routine. Once established (3-4 weeks), use it strategically for key learning moments, complex texts, or critical concepts. Daily use is powerful but not required!</p>
+                </details>
+
+                <details class="bg-gray-800 rounded-lg p-5 cursor-pointer group">
+                    <summary class="font-semibold text-white list-none flex justify-between items-center">
+                        What if students don't signal readiness?
+                        <svg class="w-5 h-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </summary>
+                    <p class="mt-3 text-gray-300 text-sm">Hold the expectation! Say "I see 12 signals... 18... Let's get to 25." Build the culture that everyone participates. If a student consistently struggles, provide sentence frames on paper or give them the question in advance.</p>
+                </details>
+
+                <details class="bg-gray-800 rounded-lg p-5 cursor-pointer group">
+                    <summary class="font-semibold text-white list-none flex justify-between items-center">
+                        Can I modify QSSSA for virtual learning?
+                        <svg class="w-5 h-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </summary>
+                    <p class="mt-3 text-gray-300 text-sm">Absolutely! Use chat for signaling readiness, breakout rooms for the Share step, and reaction buttons. Post sentence stems in a shared doc. The structure works beautifully in virtual spaces.</p>
+                </details>
+
+                <details class="bg-gray-800 rounded-lg p-5 cursor-pointer group">
+                    <summary class="font-semibold text-white list-none flex justify-between items-center">
+                        What subjects work best with QSSSA?
+                        <svg class="w-5 h-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </summary>
+                    <p class="mt-3 text-gray-300 text-sm">All subjects! Math problem-solving, science inquiry, literary analysis, historical interpretation, even PE strategy discussions. Anywhere you want students thinking critically and using academic language.</p>
+                </details>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="no-print mt-auto pt-12 pb-8 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid md:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <h3 class="font-display text-xl font-bold mb-3" style="color: #a2c0f2;">About QSSSA</h3>
+                    <p class="text-gray-400 text-sm">
+                        QSSSA is a research-based instructional framework designed to promote academic discourse, critical thinking, and equitable participation in K-12 classrooms.
+                    </p>
+                </div>
+                <div>
+                    <h3 class="font-display text-xl font-bold mb-3" style="color: #40c1ce;">Further Learning</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Research & Evidence Base</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Professional Development</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Teacher Community Forum</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Case Studies & Success Stories</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-display text-xl font-bold mb-3" style="color: #41ba78;">Connect & Share</h3>
+                    <p class="text-gray-400 text-sm mb-3">
+                        Have feedback or suggestions? We'd love to hear from you!
+                    </p>
+                    <a href="mailto:feedback@qsssa.org" class="inline-block bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                        Send Feedback
+                    </a>
+                </div>
+            </div>
+            <div class="text-center pt-8 border-t border-gray-800">
+                <p class="text-gray-500 text-sm">
+                    Made with ❤️ for educators everywhere |
+                    <a href="#" class="hover:text-gray-300 transition-colors">Privacy Policy</a> |
+                    <a href="#" class="hover:text-gray-300 transition-colors">Terms of Use</a> |
+                    <a href="#" class="hover:text-gray-300 transition-colors">Accessibility</a>
+                </p>
+                <p class="text-gray-600 text-xs mt-2">
+                    © 2025 QSSSA Educational Resources. Licensed under Creative Commons BY-NC-SA 4.0
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Card flip functionality with keyboard support
+        document.querySelectorAll('.card-container').forEach((container, index) => {
+            const card = container.querySelector('.card');
+            const step = container.dataset.step;
+
+            // Click handler
+            container.addEventListener('click', () => {
+                card.classList.toggle('is-flipped');
+                markAsExplored(step);
+            });
+
+            // Keyboard handler
+            container.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    card.classList.toggle('is-flipped');
+                    markAsExplored(step);
+                }
+            });
+        });
+
+        // Progress tracking
+        const exploredSteps = new Set();
+
+        function markAsExplored(step) {
+            exploredSteps.add(step);
+            const dot = document.querySelector(`[data-step="${step}"]`);
+            if (dot && dot.classList.contains('progress-dot')) {
+                dot.classList.add('explored');
+            }
+
+            // Save to localStorage
+            localStorage.setItem('qsssa-progress', JSON.stringify([...exploredSteps]));
+
+            // Celebrate completion
+            if (exploredSteps.size === 5) {
+                setTimeout(() => {
+                    if (confirm('🎉 Congratulations! You\'ve explored all 5 steps of QSSSA! Would you like to download the Quick Reference Guide?')) {
+                        downloadResource('quick-reference');
+                    }
+                }, 500);
+            }
+        }
+
+        // Load progress from localStorage
+        const savedProgress = localStorage.getItem('qsssa-progress');
+        if (savedProgress) {
+            JSON.parse(savedProgress).forEach(step => {
+                exploredSteps.add(step);
+                const dot = document.querySelector(`[data-step="${step}"]`);
+                if (dot && dot.classList.contains('progress-dot')) {
+                    dot.classList.add('explored');
+                }
+            });
+        }
+
+        // Filter functionality
+        let currentFilter = 'all';
+
+        function filterExamples(filter) {
+            currentFilter = filter;
+
+            // Update button states
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.filter === filter) {
+                    btn.classList.add('active');
+                }
+            });
+
+            // Filter examples
+            document.querySelectorAll('.example-item').forEach(example => {
+                if (filter === 'all' || example.dataset.grade === filter) {
+                    example.style.display = 'block';
+                } else {
+                    example.style.display = 'none';
+                }
+            });
+        }
+
+        // Share functionality
+        function shareResource(platform) {
+            const url = encodeURIComponent(window.location.href);
+            const title = encodeURIComponent('QSSSA Interactive Guide - A Structured Conversation Strategy');
+            const text = encodeURIComponent('Transform classroom discussions with QSSSA! Check out this interactive guide for educators.');
+
+            let shareUrl;
+            switch(platform) {
+                case 'twitter':
+                    shareUrl = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
+                    break;
+                case 'linkedin':
+                    shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
+                    break;
+                case 'email':
+                    shareUrl = `mailto:?subject=${title}&body=${text}%0A%0A${url}`;
+                    break;
+            }
+
+            if (shareUrl) {
+                window.open(shareUrl, '_blank', 'width=600,height=400');
+            }
+        }
+
+        // Download resources (placeholder - would connect to actual files)
+        function downloadResource(type) {
+            const resources = {
+                'quick-reference': 'QSSSA_Quick_Reference_Guide.pdf',
+                'checklist': 'QSSSA_Implementation_Checklist.pdf',
+                'stem-cards': 'QSSSA_Sentence_Stem_Cards.pdf',
+                'lesson-template': 'QSSSA_Lesson_Plan_Template.pdf',
+                'posters': 'QSSSA_Classroom_Posters.pdf',
+                'videos': 'https://youtube.com/playlist?list=example'
+            };
+
+            const resource = resources[type];
+
+            if (type === 'videos') {
+                window.open(resource, '_blank');
+            } else {
+                // In production, this would link to actual downloadable files
+                alert(`📥 Download started: ${resource}\n\nNote: This is a demonstration. In production, actual PDF files would be served.`);
+
+                // Track download for analytics
+                console.log(`Resource downloaded: ${type}`);
+            }
+        }
+
+        // Keyboard navigation between cards
+        document.addEventListener('keydown', (e) => {
+            const cards = Array.from(document.querySelectorAll('.card-container'));
+            const currentIndex = cards.indexOf(document.activeElement);
+
+            if (currentIndex === -1) return;
+
+            let nextIndex;
+            if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+                nextIndex = (currentIndex + 1) % cards.length;
+                e.preventDefault();
+            } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+                nextIndex = (currentIndex - 1 + cards.length) % cards.length;
+                e.preventDefault();
+            }
+
+            if (nextIndex !== undefined) {
+                cards[nextIndex].focus();
+            }
+        });
+
+        // Smooth scroll for skip link
+        document.querySelector('.skip-link').addEventListener('click', (e) => {
+            e.preventDefault();
+            document.getElementById('main-content').focus();
+            document.getElementById('main-content').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        // Animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe resource cards
+        document.querySelectorAll('.resource-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+    </script>
 </body>
 </html>
