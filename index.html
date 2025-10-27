@@ -82,74 +82,119 @@
             top: 0;
         }
 
-        /* Card styling - simple and clean */
+        /* Compact, visually engaging design */
         .card-container {
             transition: transform 0.2s ease, box-shadow 0.2s ease;
+            position: relative;
         }
 
         .card-container:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 20px 40px rgba(162, 192, 242, 0.25);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(162, 192, 242, 0.2);
         }
 
-        /* No flip mechanism - all content visible */
+        /* Compact header with visual punch */
         .card-content {
-            padding: 2rem;
+            padding: 1.5rem;
         }
 
         .card-content h2 {
-            font-size: 3rem;
-            margin-bottom: 0.5rem;
-            line-height: 1.1;
+            font-size: 2.5rem;
+            margin: 0 0 0.25rem 0;
+            line-height: 1;
         }
 
         .card-content .subtitle {
-            font-size: 1rem;
-            opacity: 0.75;
-            margin-bottom: 1.5rem;
-        }
-
-        .card-content .key-points {
-            font-size: 1.125rem;
-            line-height: 1.7;
-            margin-bottom: 2rem;
-            padding-left: 1.5rem;
-        }
-
-        .card-content .key-points li {
-            margin-bottom: 0.75rem;
-        }
-
-        .card-content .section-title {
-            font-size: 1.25rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            margin-top: 1.5rem;
-        }
-
-        .card-content .example-group {
-            margin: 1.5rem 0;
-        }
-
-        .card-content .example-box {
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 0.75rem;
-            padding: 1rem;
+            font-size: 0.875rem;
+            opacity: 0.7;
             margin-bottom: 1rem;
         }
 
-        .card-content .tip-box {
-            background: rgba(251, 175, 27, 0.1);
-            border-left: 4px solid #fbaf1b;
-            padding: 1rem;
-            margin-top: 1.5rem;
+        /* Compact bullet list */
+        .key-points {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+            padding-left: 1.25rem;
+            border-left: 3px solid;
+            padding-left: 1rem;
         }
 
-        .card-content .warning-box {
-            background: rgba(241, 92, 73, 0.1);
-            border-left: 4px solid #f15c49;
-            padding: 1rem;
+        .key-points li {
+            margin-bottom: 0.4rem;
+        }
+
+        /* Two-column layout for examples */
+        .examples-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+            margin: 1rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .examples-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .example-box {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 0.5rem;
+            padding: 0.75rem;
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+
+        .example-box .badge {
+            font-size: 0.7rem;
+            display: inline-block;
+            margin-bottom: 0.4rem;
+        }
+
+        /* Compact tip boxes */
+        .tip-box, .warning-box {
+            padding: 0.75rem;
             margin-top: 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+
+        .tip-box {
+            background: rgba(251, 175, 27, 0.15);
+            border-left: 3px solid #fbaf1b;
+        }
+
+        .warning-box {
+            background: rgba(241, 92, 73, 0.15);
+            border-left: 3px solid #f15c49;
+        }
+
+        /* Visual connectors between cards */
+        .card-container::after {
+            content: '↓';
+            position: absolute;
+            bottom: -2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.5rem;
+            opacity: 0.3;
+            z-index: 10;
+        }
+
+        .card-container:nth-child(5)::after {
+            content: '';
+        }
+
+        /* Compact section headers */
+        .section-header {
+            font-size: 1rem;
+            font-weight: 700;
+            margin: 1rem 0 0.5rem 0;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            opacity: 0.9;
         }
 
 
@@ -346,7 +391,7 @@
             </div>
         </section>
 
-                <!-- Main Cards Section -->
+                        <!-- Main Cards Section -->
         <main id="main-content" role="main">
             <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 max-w-7xl mx-auto">
 
@@ -356,38 +401,39 @@
                         <h2 class="font-display font-bold" style="color: #f15c49;">1. Question</h2>
                         <p class="subtitle text-gray-400">📖 Listen & Understand</p>
                         
-                        <ul class="key-points text-gray-300 list-disc">
+                        <ul class="key-points text-gray-300 list-disc" style="border-color: #f15c49;">
                             <li>Listen carefully to the question</li>
                             <li>Write it down or screenshot it</li>
                             <li>Identify what it's really asking</li>
                         </ul>
-
-                        <div class="section-title" style="color: #f15c49;">Your Job</div>
-                        <p class="text-gray-300 text-base leading-relaxed">Don't zone out during this step! The question sets up everything else. If you miss it or misunderstand it, your whole answer will be off track.</p>
-
-                        <div class="example-group">
+                        
+                        <p class="text-gray-300 text-sm leading-relaxed" style="margin-bottom: 1rem;"><strong>Your job:</strong> Don't zone out! The question sets up everything. Miss it and your whole answer is off track.</p>
+                        
+                        <div class="examples-grid">
                             <div class="example-box">
-                                <span class="badge text-xs font-semibold px-2 py-1 rounded">English Class</span>
-                                <p class="text-gray-300 text-sm mt-2 leading-relaxed"><strong>Question:</strong> "How did the character's decision at the beginning affect the ending?"<br><strong>What you do:</strong> Write down "beginning decision → ending" so you can connect those dots while reading.</p>
+                                <div class="badge bg-opacity-60 px-2 py-1 rounded text-xs font-semibold" style="background-color: #f15c4933; color: #f15c49;">English</div>
+                                <p class="text-gray-300 mt-2"><strong>Q:</strong> "How did the character's decision affect the ending?"<br><strong>Do:</strong> Write "beginning → ending" to connect dots.</p>
                             </div>
                             <div class="example-box">
-                                <span class="badge text-xs font-semibold px-2 py-1 rounded">Science Class</span>
-                                <p class="text-gray-300 text-sm mt-2 leading-relaxed"><strong>Question:</strong> "What would happen to the ecosystem if one species disappeared?"<br><strong>What you do:</strong> Screenshot it or write it down. Circle "ecosystem" and "disappeared" as key words to focus on.</p>
+                                <div class="badge bg-opacity-60 px-2 py-1 rounded text-xs font-semibold" style="background-color: #f15c4933; color: #f15c49;">Science</div>
+                                <p class="text-gray-300 mt-2"><strong>Q:</strong> "What if one species disappeared?"<br><strong>Do:</strong> Circle key words: "ecosystem" + "disappeared"</p>
                             </div>
                             <div class="example-box">
-                                <span class="badge text-xs font-semibold px-2 py-1 rounded">Math Class</span>
-                                <p class="text-gray-300 text-sm mt-2 leading-relaxed"><strong>Question:</strong> "How can we use this formula to solve real-world problems?"<br><strong>What you do:</strong> Mentally translate: "They want examples of where this formula actually matters in life."</p>
+                                <div class="badge bg-opacity-60 px-2 py-1 rounded text-xs font-semibold" style="background-color: #f15c4933; color: #f15c49;">Math</div>
+                                <p class="text-gray-300 mt-2"><strong>Q:</strong> "Use formula for real problems?"<br><strong>Do:</strong> Translate: "where does this actually matter?"</p>
                             </div>
                             <div class="example-box">
-                                <span class="badge text-xs font-semibold px-2 py-1 rounded">History Class</span>
-                                <p class="text-gray-300 text-sm mt-2 leading-relaxed"><strong>Question:</strong> "How did pre-WWI alliances make conflict inevitable, and what parallels exist today?"<br><strong>What you do:</strong> Note there are TWO parts: (1) Why WWI happened, (2) Similar situations now. You'll need both for a complete answer.</p>
+                                <div class="badge bg-opacity-60 px-2 py-1 rounded text-xs font-semibold" style="background-color: #f15c4933; color: #f15c49;">History</div>
+                                <p class="text-gray-300 mt-2"><strong>Q:</strong> "WWI alliances + today's parallels?"<br><strong>Do:</strong> Note 2 parts: (1) WWI causes (2) Similar now</p>
                             </div>
                         </div>
+                        
                         <div class="tip-box">
-                            <p class="text-sm text-yellow-300 leading-relaxed">💡 <strong>Pro move:</strong> If you're on Zoom/online, screenshot the question or type it in your notes. If in person, write the key words on paper. Having it visible keeps you on track.</p>
+                            <span class="text-yellow-300 font-semibold">💡 Pro:</span> <span class="text-gray-300">Screenshot questions on Zoom. Write key words in person. Keep it visible.</span>
                         </div>
+                        
                         <div class="warning-box">
-                            <p class="text-sm text-red-300 leading-relaxed">⚠️ <strong>Watch out:</strong> Don't just start thinking about the topic—focus on what the question is ACTUALLY asking. "Tell me about WWI" vs "Was WWI inevitable?" are very different.</p>
+                            <span class="text-red-300 font-semibold">⚠️ Watch:</span> <span class="text-gray-300">Focus on what they're ACTUALLY asking. "Tell me about WWI" ≠ "Was WWI inevitable?"</span>
                         </div>
                     </div>
                 </article>
@@ -398,35 +444,39 @@
                         <h2 class="font-display font-bold" style="color: #fbaf1b;">2. Signal</h2>
                         <p class="subtitle text-gray-400">🤔 Think & Signal</p>
                         
-                        <ul class="key-points text-gray-300 list-disc">
+                        <ul class="key-points text-gray-300 list-disc" style="border-color: #fbaf1b;">
                             <li>Take silent time to think</li>
                             <li>Signal when you have an idea</li>
                             <li>Don't stress if you need more time</li>
                         </ul>
-
-                        <div class="section-title" style="color: #fbaf1b;">Your Job</div>
-                        <p class="text-gray-300 text-base leading-relaxed">This is YOUR thinking time. No one's judging you yet. Use this silent time to actually form your thoughts—don't just wait to be called on.</p>
-
-                        <div class="example-group">
+                        
+                        <p class="text-gray-300 text-sm leading-relaxed" style="margin-bottom: 1rem;"><strong>Your job:</strong> This is YOUR thinking time. No judgment yet. Form actual thoughts—don't just wait.</p>
+                        
+                        <div class="examples-grid">
                             <div class="example-box">
-                                <span class="badge text-xs font-semibold px-2 py-1 rounded">If You're Shy</span>
-                                <p class="text-gray-300 text-sm mt-2 leading-relaxed">This step is GREAT for you. You get time to think without pressure. Even if you don't share out loud, jot down one idea. That's still engaging and helps you learn.</p>
+                                <div class="badge bg-opacity-60 px-2 py-1 rounded text-xs font-semibold" style="background-color: #fbaf1b33; color: #fbaf1b;">If Shy</div>
+                                <p class="text-gray-300 mt-2">Great for you! Time to think without pressure. Jot one idea down even if you don't share.</p>
                             </div>
                             <div class="example-box">
-                                <span class="badge text-xs font-semibold px-2 py-1 rounded">Quick Strategy</span>
-                                <p class="text-gray-300 text-sm mt-2 leading-relaxed">Write down ONE key word or phrase. Example: For "Why did Rome fall?" write "corruption + invasions". Now you won't blank when it's your turn.</p>
+                                <div class="badge bg-opacity-60 px-2 py-1 rounded text-xs font-semibold" style="background-color: #fbaf1b33; color: #fbaf1b;">Quick Win</div>
+                                <p class="text-gray-300 mt-2">Write ONE key word. "Why Rome fall?" → "corruption + invasions". Won't blank.</p>
                             </div>
                             <div class="example-box">
-                                <span class="badge text-xs font-semibold px-2 py-1 rounded">If You're Not Sure</span>
-                                <p class="text-gray-300 text-sm mt-2 leading-relaxed">Signal anyway, even if you're only 50% confident. You can say "I'm not 100% sure, but..." when you speak. That's actually impressive and shows critical thinking.</p>
+                                <div class="badge bg-opacity-60 px-2 py-1 rounded text-xs font-semibold" style="background-color: #fbaf1b33; color: #fbaf1b;">Unsure?</div>
+                                <p class="text-gray-300 mt-2">Signal at 50% confidence. Say "Not 100% sure, but..." = critical thinking.</p>
                             </div>
                             <div class="example-box">
-                                <span class="badge text-xs font-semibold px-2 py-1 rounded">Advanced Move</span>
-                                <p class="text-gray-300 text-sm mt-2 leading-relaxed">Draft 2-3 sentence bullets on paper or phone notes. Like: "1. WWI alliances = domino effect. 2. Today: NATO, China alliances. 3. Difference = nuclear weapons." Now you're locked in.</p>
+                                <div class="badge bg-opacity-60 px-2 py-1 rounded text-xs font-semibold" style="background-color: #fbaf1b33; color: #fbaf1b;">Advanced</div>
+                                <p class="text-gray-300 mt-2">Draft 2-3 bullets: "1. Alliances = dominoes 2. Today: NATO 3. Diff: nukes"</p>
                             </div>
                         </div>
+                        
+                        <div class="tip-box">
+                            <span class="text-yellow-300 font-semibold">💡 Pro:</span> <span class="text-gray-300">Introverts + multilingual learners = BETTER with think time. That's how your brain works.</span>
+                        </div>
+                        
                         <div class="warning-box">
-                            <p class="text-sm text-red-300 leading-relaxed">⚠️ <strong>Watch out:</strong> Don't just sit there staring. Actually THINK. Ask yourself: "What's my answer? Why do I think that? What evidence backs it up?"</p>
+                            <span class="text-red-300 font-semibold">⚠️ Watch:</span> <span class="text-gray-300">Actually THINK. Ask: "What's my answer? Why? What evidence?"</span>
                         </div>
                     </div>
                 </article>
@@ -437,38 +487,39 @@
                         <h2 class="font-display font-bold" style="color: #239ad6;">3. Stems</h2>
                         <p class="subtitle text-gray-400">💬 Choose Your Words</p>
                         
-                        <ul class="key-points text-gray-300 list-disc">
+                        <ul class="key-points text-gray-300 list-disc" style="border-color: #239ad6;">
                             <li>Pick a sentence starter</li>
                             <li>Plug in your idea</li>
                             <li>Sound smart & confident</li>
                         </ul>
-
-                        <div class="section-title" style="color: #239ad6;">Your Job</div>
-                        <p class="text-gray-300 text-base leading-relaxed">These sentence starters make you sound confident and organized. Pick one that fits your idea, then plug in your thoughts. It's like a template that makes your answer instantly better.</p>
-
-                        <div class="example-group">
+                        
+                        <p class="text-gray-300 text-sm leading-relaxed" style="margin-bottom: 1rem;"><strong>Your job:</strong> Sentence starters = instant confidence. Pick one, plug in thoughts. Like a template for better answers.</p>
+                        
+                        <div class="examples-grid">
                             <div class="example-box">
-                                <span class="badge text-xs font-semibold px-2 py-1 rounded">Starter Stems</span>
-                                <p class="text-gray-300 text-sm mt-2 leading-relaxed">Just starting with stems? Try: "I think... because..." "I notice..." "This reminds me of..." These work in ANY class.</p>
+                                <div class="badge bg-opacity-60 px-2 py-1 rounded text-xs font-semibold" style="background-color: #239ad633; color: #239ad6;">Answer</div>
+                                <p class="text-gray-300 mt-2">"Based on [evidence], I think..." "This suggests..." "The data shows..."</p>
                             </div>
                             <div class="example-box">
-                                <span class="badge text-xs font-semibold px-2 py-1 rounded">English/History</span>
-                                <p class="text-gray-300 text-sm mt-2 leading-relaxed">"The evidence shows..." "The author's purpose was to..." "This connects to..." Use these when discussing texts or events.</p>
+                                <div class="badge bg-opacity-60 px-2 py-1 rounded text-xs font-semibold" style="background-color: #239ad633; color: #239ad6;">Add On</div>
+                                <p class="text-gray-300 mt-2">"Building on [name]'s point..." "This connects to..." "I agree, and also..."</p>
                             </div>
                             <div class="example-box">
-                                <span class="badge text-xs font-semibold px-2 py-1 rounded">Science/Math</span>
-                                <p class="text-gray-300 text-sm mt-2 leading-relaxed">"The data suggests..." "This phenomenon can be explained by..." "According to the formula..." Perfect for analytical classes.</p>
+                                <div class="badge bg-opacity-60 px-2 py-1 rounded text-xs font-semibold" style="background-color: #239ad633; color: #239ad6;">Disagree</div>
+                                <p class="text-gray-300 mt-2">"I see it differently because..." "A counterargument..." "Another perspective..."</p>
                             </div>
                             <div class="example-box">
-                                <span class="badge text-xs font-semibold px-2 py-1 rounded">Advanced Stems</span>
-                                <p class="text-gray-300 text-sm mt-2 leading-relaxed">"The implications are..." "Through an economic lens..." "The synthesis of these ideas reveals..." These sound college-level and impress teachers.</p>
+                                <div class="badge bg-opacity-60 px-2 py-1 rounded text-xs font-semibold" style="background-color: #239ad633; color: #239ad6;">Analyze</div>
+                                <p class="text-gray-300 mt-2">"The significance is..." "This reveals..." "The implication here..."</p>
                             </div>
                         </div>
+                        
                         <div class="tip-box">
-                            <p class="text-sm text-yellow-300 leading-relaxed">💡 <strong>Pro move:</strong> Save 3-4 favorite stems in your phone notes by subject. Copy/paste into assignments too—works for discussions AND essays!</p>
+                            <span class="text-yellow-300 font-semibold">💡 Pro:</span> <span class="text-gray-300">Save 3-4 stems in phone notes by subject. Use in discussions AND essays!</span>
                         </div>
+                        
                         <div class="warning-box">
-                            <p class="text-sm text-red-300 leading-relaxed">⚠️ <strong>Watch out:</strong> Don't try to memorize 20 stems. Pick 2-3 you like and use them repeatedly until they feel natural. Then add more.</p>
+                            <span class="text-red-300 font-semibold">⚠️ Watch:</span> <span class="text-gray-300">Don't memorize 20. Pick 2-3, use repeatedly until natural. Then add more.</span>
                         </div>
                     </div>
                 </article>
@@ -479,38 +530,39 @@
                         <h2 class="font-display font-bold" style="color: #41ba78;">4. Share</h2>
                         <p class="subtitle text-gray-400">🗣️ Practice First</p>
                         
-                        <ul class="key-points text-gray-300 list-disc">
+                        <ul class="key-points text-gray-300 list-disc" style="border-color: #41ba78;">
                             <li>Share with a partner first</li>
                             <li>Listen to their ideas too</li>
                             <li>Refine your answer</li>
                         </ul>
-
-                        <div class="section-title" style="color: #41ba78;">Your Job</div>
-                        <p class="text-gray-300 text-base leading-relaxed">This is your "practice run" before speaking to the whole class. Share your idea with one or two classmates, hear their thoughts, and refine your answer. Way less pressure than talking to everyone at once.</p>
-
-                        <div class="example-group">
+                        
+                        <p class="text-gray-300 text-sm leading-relaxed" style="margin-bottom: 1rem;"><strong>Your job:</strong> Practice run before the whole class. Share with 1-2 people, hear thoughts, refine. Way less pressure.</p>
+                        
+                        <div class="examples-grid">
                             <div class="example-box">
-                                <span class="badge text-xs font-semibold px-2 py-1 rounded">If You're Nervous</span>
-                                <p class="text-gray-300 text-sm mt-2 leading-relaxed">Sharing with just ONE person is WAY easier than the whole class. Use this to build confidence. If your partner likes your idea, that's a good sign to share it with everyone.</p>
+                                <div class="badge bg-opacity-60 px-2 py-1 rounded text-xs font-semibold" style="background-color: #41ba7833; color: #41ba78;">Nervous?</div>
+                                <p class="text-gray-300 mt-2">Sharing with ONE person = WAY easier. Build confidence. Partner likes it? Share with all.</p>
                             </div>
                             <div class="example-box">
-                                <span class="badge text-xs font-semibold px-2 py-1 rounded">Active Listening</span>
-                                <p class="text-gray-300 text-sm mt-2 leading-relaxed">When your partner shares, actually listen—don't just wait for your turn. You might hear something that adds to YOUR idea. Try: "That's interesting, and it connects to my point about..."</p>
+                                <div class="badge bg-opacity-60 px-2 py-1 rounded text-xs font-semibold" style="background-color: #41ba7833; color: #41ba78;">Listen!</div>
+                                <p class="text-gray-300 mt-2">Actually listen—don't just wait. Hear something good? "That connects to my point..."</p>
                             </div>
                             <div class="example-box">
-                                <span class="badge text-xs font-semibold px-2 py-1 rounded">Make It a Conversation</span>
-                                <p class="text-gray-300 text-sm mt-2 leading-relaxed">Don't just take turns presenting. Actually respond to each other: "Wait, but what about...?" or "That makes me think..." It's more interesting and you'll both have better ideas after.</p>
+                                <div class="badge bg-opacity-60 px-2 py-1 rounded text-xs font-semibold" style="background-color: #41ba7833; color: #41ba78;">Converse</div>
+                                <p class="text-gray-300 mt-2">Don't take turns presenting. Respond: "Wait, what about...?" "That makes me think..."</p>
                             </div>
                             <div class="example-box">
-                                <span class="badge text-xs font-semibold px-2 py-1 rounded">Level Up Your Response</span>
-                                <p class="text-gray-300 text-sm mt-2 leading-relaxed">After sharing, mentally adjust your answer based on feedback. If your partner said something smart, integrate it: "As [name] pointed out, [their idea], which supports my point that..."</p>
+                                <div class="badge bg-opacity-60 px-2 py-1 rounded text-xs font-semibold" style="background-color: #41ba7833; color: #41ba78;">Level Up</div>
+                                <p class="text-gray-300 mt-2">Adjust after feedback. Integrate partner's point: "As [name] said, [their idea]..."</p>
                             </div>
                         </div>
+                        
                         <div class="tip-box">
-                            <p class="text-sm text-yellow-300 leading-relaxed">💡 <strong>Pro move:</strong> If your partner gives a really good answer, remember it. You can reference it later: "I agree with [name]'s point about..." Teachers LOVE when you build on classmates' ideas.</p>
+                            <span class="text-yellow-300 font-semibold">💡 Pro:</span> <span class="text-gray-300">Remember partner's good answer. Reference it: "I agree with [name]'s point..." Teachers love it.</span>
                         </div>
+                        
                         <div class="warning-box">
-                            <p class="text-sm text-red-300 leading-relaxed">⚠️ <strong>Watch out:</strong> Don't just say "I agree" and stop. Add something: "I agree because..." or "I agree, and also..." Give your partner something to work with too.</p>
+                            <span class="text-red-300 font-semibold">⚠️ Watch:</span> <span class="text-gray-300">Don't just say "I agree." Add "I agree because..." or "I agree, and also..."</span>
                         </div>
                     </div>
                 </article>
@@ -519,44 +571,44 @@
                 <article class="card-container rounded-2xl shadow-xl bg-gray-800 border-t-8" style="border-color: #b285bc;">
                     <div class="card-content">
                         <h2 class="font-display font-bold" style="color: #b285bc;">5. Assess</h2>
-                        <p class="subtitle text-gray-400">🎤 Share with the Class</p>
+                        <p class="subtitle text-gray-400">🎤 Share with Class</p>
                         
-                        <ul class="key-points text-gray-300 list-disc">
+                        <ul class="key-points text-gray-300 list-disc" style="border-color: #b285bc;">
                             <li>Be ready to share your idea</li>
                             <li>Listen to others' responses</li>
                             <li>Build on the discussion</li>
                         </ul>
-
-                        <div class="section-title" style="color: #b285bc;">Your Job</div>
-                        <p class="text-gray-300 text-base leading-relaxed">This is the "real deal"—sharing with the whole class. You might be called on randomly, so stay ready. But even if you're not called on, listen actively and engage mentally. This is where you show what you've got.</p>
-
-                        <div class="example-group">
+                        
+                        <p class="text-gray-300 text-sm leading-relaxed" style="margin-bottom: 1rem;"><strong>Your job:</strong> The real deal. Might get called randomly—stay ready. Even if not called, listen actively.</p>
+                        
+                        <div class="examples-grid">
                             <div class="example-box">
-                                <span class="badge text-xs font-semibold px-2 py-1 rounded">If You Get Called On</span>
-                                <p class="text-gray-300 text-sm mt-2 leading-relaxed">Use your sentence stem! Start with "I think... because..." and say your idea. Even if you're nervous, having that starter makes it way easier to begin speaking.</p>
+                                <div class="badge bg-opacity-60 px-2 py-1 rounded text-xs font-semibold" style="background-color: #b285bc33; color: #b285bc;">Called On</div>
+                                <p class="text-gray-300 mt-2">Use your stem! "I think... because..." Starter makes it easy to begin speaking.</p>
                             </div>
                             <div class="example-box">
-                                <span class="badge text-xs font-semibold px-2 py-1 rounded">If You Blank</span>
-                                <p class="text-gray-300 text-sm mt-2 leading-relaxed">Totally normal. Look at your notes. Say "Can I have a second?" Then use a stem: "The evidence shows..." and read what you wrote. No one will know you blanked.</p>
+                                <div class="badge bg-opacity-60 px-2 py-1 rounded text-xs font-semibold" style="background-color: #b285bc33; color: #b285bc;">Blank?</div>
+                                <p class="text-gray-300 mt-2">Normal. Check notes. "Can I have a second?" Then use stem + read what you wrote.</p>
                             </div>
                             <div class="example-box">
-                                <span class="badge text-xs font-semibold px-2 py-1 rounded">If Teacher Asks Follow-Up</span>
-                                <p class="text-gray-300 text-sm mt-2 leading-relaxed">"Can you expand on that?" means give more detail or example. "What evidence?" means cite specific facts/quotes. "Why?" means explain your reasoning. They're helping you go deeper—not criticizing.</p>
+                                <div class="badge bg-opacity-60 px-2 py-1 rounded text-xs font-semibold" style="background-color: #b285bc33; color: #b285bc;">Follow-up</div>
+                                <p class="text-gray-300 mt-2">"Expand?" = more detail. "Evidence?" = cite facts. "Why?" = explain reasoning.</p>
                             </div>
                             <div class="example-box">
-                                <span class="badge text-xs font-semibold px-2 py-1 rounded">If You're NOT Called On</span>
-                                <p class="text-gray-300 text-sm mt-2 leading-relaxed">Stay engaged! Compare your answer to what others say. Mentally note: "That's similar to mine" or "That's different because..." You're still learning even if you don't speak.</p>
+                                <div class="badge bg-opacity-60 px-2 py-1 rounded text-xs font-semibold" style="background-color: #b285bc33; color: #b285bc;">NOT Called</div>
+                                <p class="text-gray-300 mt-2">Stay engaged! Compare your answer. "Similar to mine" or "Different because..."</p>
                             </div>
                         </div>
+                        
                         <div class="tip-box">
-                            <p class="text-sm text-yellow-300 leading-relaxed">💡 <strong>Pro move:</strong> After answering, listen when the teacher responds. If they say "Great point" or "Interesting take," that's validation—remember that approach for next time!</p>
+                            <span class="text-yellow-300 font-semibold">💡 Pro:</span> <span class="text-gray-300">Teachers notice: stems, evidence, building on classmates, respectful disagreeing, engaged body language.</span>
                         </div>
+                        
                         <div class="warning-box">
-                            <p class="text-sm text-red-300 leading-relaxed">⚠️ <strong>Watch out:</strong> Don't check out mentally if you're not called on immediately. Teachers often call on people who look engaged even after the first few responses.</p>
+                            <span class="text-red-300 font-semibold">⚠️ Watch:</span> <span class="text-gray-300">If uncertain, say so! "I'm not 100% sure, but..." shows critical thinking.</span>
                         </div>
                     </div>
                 </article>
-
             </div>
         </main>
 
